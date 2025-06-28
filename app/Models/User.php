@@ -19,15 +19,16 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
-        'card_number',
-        'absen',
-        'name',
-        'email',
-        'telepon',
-        'is_admin',
-        'password',
-    ];
+    protected $table = 'users'; 
+
+    protected static function booted()
+    {
+        static::addGlobalScope('admin', function ($query) {
+            $query->where('is_admin', true);
+        });
+    }
+
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -52,18 +53,4 @@ class User extends Authenticatable
         ];
     }
 
-    public function class() :BelongsTo
-    {
-        return $this->belongsTo(StudentClass::class);
-    }
-
-    public function attendance() :HasMany
-    {
-        return $this->hasMany(Attendance::class);
-    }
-
-    public function permission() :HasMany
-    {
-        return $this->hasMany(Permission::class);
-    }
 }

@@ -17,6 +17,6 @@ class StudentClass extends Model
 
     public function student() :HasMany
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Student::class);
     }
 }

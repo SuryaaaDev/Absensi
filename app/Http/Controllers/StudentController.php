@@ -12,7 +12,7 @@ class StudentController extends Controller
 {
     public function profile()
     {
-        $user = Auth::user();
+        $user = Auth::guard('student')->user();
         if (!$user) {
             return redirect()->route('login');
         }
@@ -22,7 +22,7 @@ class StudentController extends Controller
 
     public function student()
     {
-        $user = Auth::user();
+        $user = Auth::guard('student')->user();
         if (!$user) {
             return redirect()->route('login');
         }
@@ -38,7 +38,7 @@ class StudentController extends Controller
 
     public function history()
     {
-        $user = Auth::user();
+        $user = Auth::guard('student')->user();
         if (!$user) {
             return redirect()->route('login');
         }
@@ -46,7 +46,7 @@ class StudentController extends Controller
         $permissions = Permission::with('student')
             ->where('student_id', $user->id)
             ->get();
-        
+
         $attendances = Attendance::with('student')
             ->where('student_id', $user->id)
             ->get();
@@ -57,10 +57,11 @@ class StudentController extends Controller
 
     public function permission()
     {
-        $user = Auth::user();
+        $user = Auth::guard('student')->user();
         if (!$user) {
             return redirect()->route('login');
         }
+
         $classes = StudentClass::all();
         $statuses = Status::all()->slice(3)->values();
 

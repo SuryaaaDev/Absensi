@@ -8,6 +8,7 @@
     <link rel="icon" href="{{ asset('storage/image/logo-smk2klt.png') }}">
     <title>@yield('title', 'Absensi Siswa | RFID')</title>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100">
@@ -18,5 +19,6 @@
     <main>
         @yield('content')
     </main>
+    @include('sweetalert::alert')
 </body>
 </html>

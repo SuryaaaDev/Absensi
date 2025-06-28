@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="flex justify-center items-center min-h-screen">
-        <div class="flex flex-col md:w-1/4 overflow-hidden rounded-lg bg-gray-100 shadow-xs border border-black">
+    <div class="flex justify-center items-center min-h-screen p-10">
+        <div class="flex flex-col w-full md:w-1/4 overflow-hidden rounded-lg bg-gray-100 shadow-xs border border-black">
             <div class="mb-8 bg-cover"
                 style="background-image: url(&quot;https://cdn.tailkit.com/media/placeholders/photo-JgOeRuGD_Y4-800x400.jpg&quot;);">
                 <div class="flex h-32 items-end justify-center">

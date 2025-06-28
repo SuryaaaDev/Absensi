@@ -5,60 +5,113 @@
 @endsection
 
 @section('content')
-    <div class="w-3/4 ml-70">
-        <div class="p-10 grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-10 h-10 text-black">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Siswa</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span>{{ $users }} siswa</span>
-                        </p>
-                    </div>
+    <div class="p-5 ml-17 sm:ml-64">
+        <h1 class="text-2xl font-bold mb-4">Dashboard Absensi</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Total Siswa</h3>
+                <p class="text-2xl font-bold text-blue-600">{{ $totalStudents }}</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Hadir Hari Ini</h3>
+                <p class="text-2xl font-bold text-green-600">{{ $presentToday }}</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Terlambat Hari Ini</h3>
+                <p class="text-2xl font-bold text-red-600">{{ $lateToday }}</p>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row w-full gap-4 mb-6">
+            <div class="bg-white rounded-2xl shadow p-4 w-full md:w-3/4 h-auto">
+                <h3 class="text-lg font-semibold mb-2">Kehadiran 7 Hari Terakhir</h3>
+                <div class="relative h-[300px]">
+                    <canvas id="barChart"></canvas>
                 </div>
             </div>
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg class="w-10 h-10 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M3.78552 9.5 12.7855 14l9-4.5-9-4.5-8.99998 4.5Zm0 0V17m3-6v6.2222c0 .3483 2 1.7778 5.99998 1.7778 4 0 6-1.3738 6-1.7778V11" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Kelas</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span>{{ $classes }} kelas</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg class="w-10 h-10 text-black"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" stroke-width="1.6">
-                                <path d="M17 2v2m-5-2v2M7 2v2m-3.5 6c0-3.3 0-4.95 1.025-5.975S7.2 3 10.5 3h3c3.3 0 4.95 0 5.975 1.025S20.5 6.7 20.5 10v5c0 3.3 0 4.95-1.025 5.975S16.8 22 13.5 22h-3c-3.3 0-4.95 0-5.975-1.025S3.5 18.3 3.5 15zm10 6H17m-3.5-7H17"/>
-                                <path d="M7 10s.5 0 1 1c0 0 1.588-2.5 3-3m-4 9s.5 0 1 1c0 0 1.588-2.5 3-3"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Absensi</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span>{{ $attendances }} tercatat</span>
-                        </p>
-                    </div>
+            <div class="bg-white rounded-2xl shadow p-4 w-full md:w-1/2 h-auto">
+                <h3 class="text-lg font-semibold mb-2">Distribusi Status Hari Ini</h3>
+                <div class="relative h-[300px]">
+                    <canvas id="pieChart"></canvas>
                 </div>
             </div>
         </div>
+
+
+        <div class="bg-white rounded-2xl shadow p-4 overflow-x-auto">
+            <h3 class="text-lg font-semibold mb-4">Data Kehadiran Terbaru</h3>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Nama</th>
+                        <th class="px-4 py-2 text-left">Tanggal</th>
+                        <th class="px-4 py-2 text-left">Masuk</th>
+                        <th class="px-4 py-2 text-left">Pulang</th>
+                        <th class="px-4 py-2 text-left">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
+                    @foreach ($recentAttendances as $att)
+                        <tr>
+                            <td class="px-4 py-2">{{ $att->student->name }}</td>
+                            <td class="px-4 py-2">{{ $att->attendance_date }}</td>
+                            <td class="px-4 py-2">{{ $att->time_in }}</td>
+                            <td class="px-4 py-2">{{ $att->time_out }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap rounded-lg">
+                                <span
+                                    class="inline-flex font-semibold
+                                    @if ($att->status->id == 1) text-red-700
+                                    @elseif($att->status->id == 2) text-emerald-700
+                                    @elseif($att->status->id == 3) text-blue-700
+                                    @else text-amber-700 @endif
+                                    ">{{ $att->status->status_name }}</span>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
     </div>
+
+    <script>
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: {!! json_encode($attendancePerDay->pluck('date')) !!},
+                datasets: [{
+                    label: 'Jumlah Kehadiran',
+                    data: {!! json_encode($attendancePerDay->pluck('count')) !!},
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        new Chart(pieCtx, {
+            type: 'pie',
+            data: {
+                labels: {!! json_encode($statusCounts->pluck('status_name')) !!},
+                datasets: [{
+                    data: {!! json_encode($statusCounts->pluck('attendances_count')) !!},
+                    backgroundColor: ['#ef4444', '#10b981', '#3b82f6', '#f59e0b']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
 @endsection

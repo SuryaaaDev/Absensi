@@ -17,10 +17,13 @@ return new class extends Migration
             $table->date('attendance_date')->nullable();
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
-            $table->unsignedBigInteger('status_id')->default(1);
+            $table->unsignedBigInteger('status_id')->default(1)->nullable();
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('status_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('status_id')->references('id')->on('statuses')->nullOnDelete();
+
+            // kombinasi unik: satu siswa hanya satu data per tanggal
+            $table->unique(['student_id', 'attendance_date']);
         });
     }
 

@@ -16,12 +16,12 @@ class Attendance extends Model
         'attendance_date',
         'time_in',
         'time_out',
-        'status',
+        'status_id',
     ];
 
     public function student() :BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 
     public function status() :BelongsTo

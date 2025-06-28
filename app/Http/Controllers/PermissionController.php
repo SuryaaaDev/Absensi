@@ -7,6 +7,7 @@ use App\Models\Permission;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class PermissionController extends Controller
 {
@@ -25,7 +26,9 @@ class PermissionController extends Controller
         $permission->student_id = $student;
         $permission->image = $imagePath;
         $permission->explanation_id = $request->explanation;
+        $permission->date = now()->toDateString();
         $permission->save();
+        Alert::success('Success', 'Permohonan ijin berhasil dikirim!');
 
         return redirect()->route('permission');
     }
@@ -42,8 +45,9 @@ class PermissionController extends Controller
         $permission = Permission::findOrFail($id);
         $permission->status = 'ditolak';
         $permission->save();
+        Alert::success('Success', 'Permohonan ijin berhasil ditolak!');
 
-        return redirect()->back()->with('reject', 'Perizinan ditolak!');
+        return redirect()->back();
     }
 
     public function accepted($id)
@@ -61,7 +65,8 @@ class PermissionController extends Controller
             $attendance->status_id = $attendanceStatus;
             $attendance->save();
         }
+        Alert::success('Success', 'Permohonan ijin berhasil diterima dan status absensi diperbarui!');
 
-        return redirect()->back()->with('success', 'Perizinan diterima dan status absensi diperbarui.');
+        return redirect()->back();
     }
 }

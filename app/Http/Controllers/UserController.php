@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use GuzzleHttp\Client;
 use App\Models\Attendance;
+use App\Models\Student;
 use Illuminate\Support\Str;
 use App\Models\StudentClass;
 use App\Models\TmpRfid;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class UserController extends Controller
 {
@@ -21,9 +23,11 @@ class UserController extends Controller
         $rfidArray = json_decode($rfidJson, true)['data'];
 
         $classes = StudentClass::all();
-        $students = User::where('is_admin', false)
-                ->orderBy('absen', 'asc')
-                ->get();
+        $students = Student::orderBy('absen', 'asc')->get();
+
+        $title = 'Hapus Data';
+        $text = "Apakah anda yakin untuk menghapus data ini?";
+        confirmDelete($title, $text);
 
         return view('admin.students', compact('students', 'rfidArray', 'classes'));
     }
@@ -59,8 +63,9 @@ class UserController extends Controller
         ]);
 
         TmpRfid::truncate();
+        Alert::success('Success', 'Data siswa berhasil ditambahkan!');
 
-        return redirect()->route('students')->with('success', 'Data siswa berhasil ditambahkan!');
+        return redirect()->route('students');
     }
 
     public function updateUser(Request $request, $id)
@@ -77,7 +82,7 @@ class UserController extends Controller
 
         $name = Str::title($request->name);
 
-        $user = User::findOrFail($id);
+        $user = Student::findOrFail($id);
         $user->card_number = $request->card_number;
         $user->absen = $request->absen;
         $user->name = $name;
@@ -90,23 +95,25 @@ class UserController extends Controller
         }
 
         $user->save();
+        Alert::success('Success', 'Data siswa berhasil diperbarui!');
 
-        return redirect()->route('students')->with('success', 'Data siswa berhasil diperbarui!');
+        return redirect()->route('students');
     }
 
     public function destroy($id)
     {
-        $user = User::findOrFail($id);
+        $user = Student::findOrFail($id);
         $user->delete();
+        Alert::success('Success', 'Data siswa berhasil dihapus!');
 
-        return redirect()->route('students')->with('success', 'Data siswa berhasil dihapus!');
+        return redirect()->route('students');
     }
 
     public function search(Request $request)
     {
         $query = $request->input('query');
 
-        $students = User::query()
+        $students = Student::query()
             ->when($query, function ($q) use ($query) {
                 return $q->where('name', 'like', "%{$query}%")
                     ->orWhere('absen', 'like', "%{$query}%")
@@ -117,7 +124,7 @@ class UserController extends Controller
                     });
             })
             ->with('class')
-            ->paginate(10); 
+            ->paginate(10);
         $classes = StudentClass::all();
 
         return view('admin.students', compact('students', 'classes'));

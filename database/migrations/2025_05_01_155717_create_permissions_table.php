@@ -16,11 +16,11 @@ return new class extends Migration
             $table->unsignedBigInteger('student_id');
             $table->date('date');
             $table->string('image');
-            $table->unsignedBigInteger('explanation_id');
+            $table->unsignedBigInteger('explanation_id')->nullable();
             $table->enum('status', ['pending', 'diterima', 'ditolak'])->default('pending');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('explanation_id')->references('id')->on('statuses')->onDelete('cascade');
+            $table->foreign('explanation_id')->references('id')->on('statuses')->nullOnDelete();
         });
     }
 

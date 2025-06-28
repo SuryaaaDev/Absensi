@@ -18,7 +18,7 @@ class Permission extends Model
 
     public function student() :BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Student::class);
     }
 
     public function explanation() :BelongsTo

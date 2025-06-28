@@ -5,36 +5,19 @@
 @endsection
 
 @section('content')
-    @if (session('success'))
-        <div class="fixed z-10 top-4 right-4">
-            <div class="flex items-start w-full gap-4 px-4 py-3 text-sm border rounded border-emerald-100 bg-emerald-50 text-emerald-500"
-                role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="1.5" role="graphics-symbol" aria-labelledby="title-06 desc-06">
-                    <title id="title-06">Icon title</title>
-                    <desc id="desc-06">A more detailed description of the icon</desc>
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                    <h3 class="mb-2 font-semibold">Success</h3>
-                    <p>{{ session('success') }}</p>
+    <div class="p-5 md:p-10 ml-17 sm:ml-64">
+        <div class="flex justify-end md:justify-start mb-5">
+            <button popovertarget="add-class"
+                class="flex items-center cursor-pointer p-2 rounded bg-blue-500 hover:bg-blue-600 text-white border-blue-700 mx-1">
+                <div class="mx-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" viewBox="0 0 1024 1024">
+                        <path fill="currentColor"
+                            d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zM736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32z" />
+                    </svg>
                 </div>
-            </div>
+                <span class="mx-1">Tambah Data</span>
+            </button>
         </div>
-    @endif
-
-    <div class="p-10 ml-64">
-        <button popovertarget="add-class"
-            class="flex items-center cursor-pointer p-2 rounded bg-blue-500 hover:bg-blue-600 text-white border-blue-700 mx-1">
-            <div class="mx-1">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-4.5 w-4.5" viewBox="0 0 1024 1024">
-                    <path fill="currentColor"
-                        d="M512 0C229.232 0 0 229.232 0 512c0 282.784 229.232 512 512 512c282.784 0 512-229.216 512-512C1024 229.232 794.784 0 512 0zm0 961.008c-247.024 0-448-201.984-448-449.01c0-247.024 200.976-448 448-448s448 200.977 448 448s-200.976 449.01-448 449.01zM736 480H544V288c0-17.664-14.336-32-32-32s-32 14.336-32 32v192H288c-17.664 0-32 14.336-32 32s14.336 32 32 32h192v192c0 17.664 14.336 32 32 32s32-14.336 32-32V544h192c17.664 0 32-14.336 32-32s-14.336-32-32-32z" />
-                </svg>
-            </div>
-            <span class="mx-1">Tambah Data</span>
-        </button>
         <section popover id="add-class" class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">
             <button type="button" popovertarget="add-class" popovertargetaction="hide"
                 class="cursor-pointer absolute right-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -66,7 +49,7 @@
         </section>
 
         <h1 class="text-center text-2xl font-bold pb-4">Data Kelas</h1>
-        <div class="overflow-x-auto w-1/4 m-auto rounded border border-gray-300 shadow-sm bg-white">
+        <div class="overflow-x-auto w-full lg:w-1/3 m-auto rounded border border-gray-300 shadow-sm bg-white">
             <table class="min-w-full divide-y-2 divide-gray-200">
                 <thead class="ltr:text-left rtl:text-right">
                     <tr class="*:font-medium *:text-gray-900">
@@ -96,7 +79,7 @@
                                             </g>
                                         </svg>
                                     </button>
-                                    <button type="button" popovertarget="delete-class-{{ $class->id }}"
+                                    <a href="{{ route('delete.class', $class->id) }}" data-confirm-delete="true"
                                         class="px-3 py-1.5 cursor-pointer text-sm font-medium bg-red-600 transition-colors hover:bg-red-500 hover:text-gray-900 focus:relative"
                                         aria-label="Delete">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
@@ -104,35 +87,8 @@
                                                 stroke-linejoin="round" stroke-width="2"
                                                 d="M4 7h16m-10 4v6m4-6v6M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-12M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3" />
                                         </svg>
-                                    </button>
+                                    </a>
                                 </span>
-
-                                <section popover id="delete-class-{{ $class->id }}"
-                                    class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">
-                                    <div class="flex justify-center">
-                                        <svg class="text-red-700 w-32 h-32" viewBox="-2 -2 24 24"
-                                            xmlns="http://www.w3.org/2000/svg">
-                                            <path
-                                                d="M10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm0-13a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1zm0 10a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
-                                                fill="currentColor" />
-                                        </svg>
-                                    </div>
-                                    <p class="text-gray-700 dark:text-gray-200" for="class_name">Apakah anda yakin
-                                        menghapus data ini?</p>
-                                    <form action="{{ route('delete.class', $class->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <div class="flex justify-end mt-6 gap-2">
-                                            <button popovertarget="delete-class-{{ $class->id }}"
-                                                popovertargetaction="hide"
-                                                class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                                                type="button">Batal</button>
-                                            <button
-                                                class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                                                type="submit">Delete</button>
-                                        </div>
-                                    </form>
-                                </section>
 
                                 <section popover id="edit-class-{{ $class->id }}"
                                     class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">

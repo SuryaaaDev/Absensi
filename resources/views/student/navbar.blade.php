@@ -103,7 +103,7 @@
                             </li>
                             <hr>
                             <li>
-                                <form action="{{ route('logout') }}" method="POST" class="">
+                                <form action="{{ route('logout.student') }}" method="POST" class="">
                                     @csrf
                                     <button type="submit"
                                         class="cursor-pointer w-full flex items-center justify-start gap-2 p-2 px-5 transition-colors duration-300 text-red-500 hover:bg-red-50 hover:text-red-500 focus:bg-red-50 focus:text-red-600 focus:outline-none focus-visible:outline-none">

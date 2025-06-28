@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('card_number')->unique();
             $table->integer('absen');
             $table->string('name');
-            $table->unsignedBigInteger('class_id');
+            $table->unsignedBigInteger('class_id')->nullable();
             $table->string('email')->unique();
             $table->string('telepon');
             $table->boolean('is_admin')->default(false);
@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('student_classes')->onDelete('cascade');
+            $table->foreign('class_id')->references('id')->on('student_classes')->nullOnDelete();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

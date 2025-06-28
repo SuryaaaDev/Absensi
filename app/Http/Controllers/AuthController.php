@@ -21,22 +21,32 @@ class AuthController extends Controller
             'password' => 'required|min:3',
         ]);
 
-        if(Auth::attempt($data)) {
+        if (Auth::attempt($data)) {
             $request->session()->regenerate();
-            $user = Auth::user();
-            if($user->is_admin) {
-                return redirect()->route('dashboard');
-            }
-            return redirect()->route('student');
-        } else {
-            return redirect()->back()->with('failed', 'Email atau Password anda salah.');
+            return redirect()->route('dashboard');
         }
+
+        if (Auth::guard('student')->attempt($data)) {
+            $request->session()->regenerate();
+            return redirect()->route('student');
+        }
+
+        toast('Email atau Password anda salah.', 'error')->autoClose(3000)->timerProgressBar()->width('420px');
+        return redirect()->back();
     }
 
     public function logout()
     {
         Auth::logout();
 
+        return redirect()->route('login');
+    }
+
+    public function logoutStudent(Request $request)
+    {
+        Auth::guard('student')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
         return redirect()->route('login');
     }
 }

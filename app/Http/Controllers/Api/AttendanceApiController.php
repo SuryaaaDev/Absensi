@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Attendance;
 use App\Models\Mode;
+use App\Models\Student;
 use App\Models\TimeLimit;
 use App\Models\TmpRfid;
 use App\Models\User;
@@ -21,7 +22,7 @@ class AttendanceApiController extends Controller
             return response()->json(['error' => 'Tidak ada data RFID terdeteksi'], 400);
         }
 
-        $user = User::where('card_number', $rfidData->nokartu)->first();
+        $user = Student::where('card_number', $rfidData->nokartu)->first();
         if (!$user) {
             TmpRfid::truncate();
             return response()->json(['error' => 'Kartu tidak terdaftar'], 404);
@@ -37,29 +38,20 @@ class AttendanceApiController extends Controller
         $currentTime = Carbon::now('Asia/Jakarta')->toTimeString();
         $jamBatas = TimeLimit::first();
 
-        $attendance = User::where('card_number', $rfidData->nokartu)
-            ->first();
+        $attendance = Student::where('card_number', $rfidData->nokartu)->first();
 
         if (!$attendance) {
-            return response()->json(['error' => 'Data siswa tidak terdaftar'], 400);
+            return response()->json(['error' => 'Data siswa tidak terdaftar.'], 400);
         }
 
-        // if ($modeSetting->mode_name == "masuk") {
-        //     Attendance::update([
-        //         'attendance_date' => $currentDate,
-        //         'time_in' => $currentTime,
-        //         'status_id' => 2,
-        //         'updated_at' => now()
-        //     ]);
-        // } else {
-        //     Attendance::update([
-        //         'time_out' => $currentTime,
-        //         'updated_at' => now()
-        //     ]);
-        // }
         $attendance = Attendance::firstOrNew([
             'student_id' => $user->id,
+            'attendance_date' => $currentDate,
         ]);
+
+        if ($modeSetting->mode_name == "masuk" && $attendance->time_in) {
+            return response()->json(['error' => 'Siswa sudah absen masuk hari ini.']);
+        }
 
         if ($modeSetting->mode_name == "masuk") {
             $attendance->attendance_date = $currentDate;
@@ -115,14 +107,15 @@ class AttendanceApiController extends Controller
         $attendance->save();
         TmpRfid::truncate();
 
-        if ($user->telepon) {
-            Http::withHeaders([
-                'Authorization' => 'fhap9HxSkeENk3E9hzCw',
-            ])->post('https://api.fonnte.com/send', [
-                'target' => $user->telepon,
-                'message' => $message,
-            ]);
-        }
+        // fonnte wa api
+        // if ($user->telepon) {
+        //     Http::withHeaders([
+        //         'Authorization' => 'fhap9HxSkeENk3E9hzCw',
+        //     ])->post('https://api.fonnte.com/send', [
+        //         'target' => $user->telepon,
+        //         'message' => $message,
+        //     ]);
+        // }
 
         return response()->json([
             'success' => 'Absen berhasil tercatat!',

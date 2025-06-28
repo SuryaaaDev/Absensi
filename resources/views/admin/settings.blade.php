@@ -5,8 +5,8 @@
 @endsection
 
 @section('content')
-    <div class="ml-64 p-10 flex flex-col gap-4">
-        <div class="bg-white shadow-sm p-6 rounded-lg w-2/5 flex justify-between">
+    <div class="p-5 ml-17 sm:ml-64 flex flex-col gap-3">
+        <div class="bg-white shadow-sm p-6 rounded-lg lg:w-2/5 flex justify-between">
             <label for="mode_name">
                 <span class="font-bold text-md">Mode Absen</span>
                 <p class="text-gray-800 text-sm mb-3">Ganti mode absen untuk kehadiran atau kepulangan.</p>
@@ -27,21 +27,21 @@
             </form>
         </div>
 
-        <div class="bg-white shadow-sm p-6 rounded-lg w-2/6 flex flex-col">
+        <div class="bg-white shadow-sm p-6 rounded-lg lg:w-2/6 flex flex-col">
             <h1 class="font-bold text-md">Batas Waktu</h1>
             <p class="text-gray-800 text-sm mb-3">Atur batas waktu yang digunakan untuk absen.</p>
-            <div class="flex justify-between">
+            <div class="flex justify-between flex-wrap">
                 <div class="flex flex-col gap-2 mt-2">
-                    <div class="flex gap-2 items-center">
+                    <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Masuk :</label>
                         <span class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->in }}</span>
                     </div>
-                    <div class="flex gap-2 items-center">
+                    <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Pulang :</label>
                         <span class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->out }}</span>
                     </div>
                 </div>
-                <div class="flex justify-end h-full mt-16">
+                <div class="flex justify-end h-full mt-5 sm:mt-16">
                     <button popovertarget="edit-time"
                         class="py-2 px-4 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
                         type="button">
@@ -56,10 +56,10 @@
                 </div>
 
                 <section popover id="edit-time"
-                    class="w-sm p-6 m-auto bg-white rounded-md shadow-md z-10">
+                    class="max-w-4xl w-11/12 sm:w-1/2 lg:w-1/4 p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 text-gray-700 dark:text-gray-200">
                     <button type="button" popovertarget="edit-time" popovertargetaction="hide"
                         class="cursor-pointer absolute right-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <svg class="w-6 h-6 text-gray-800 hover:text-gray-500" aria-hidden="true"
+                        <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-gray-500" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
                             viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -71,14 +71,14 @@
                     <form action="{{ route('time') }}" method="POST">
                         @csrf
 
-                        <div class="flex flex-col gap-2 mt-4">
+                        <div class="flex flex-col gap-2 mt-4 ">
                             <div class="flex gap-2 items-center">
                                 <label class="font-semibold text-md">Jam Masuk :</label>
-                                <input type="time" class="border border-black p-1 rounded-lg" value="{{ $timeLimit->in }}" name="in">
+                                <input type="time" class="border border-white p-1 rounded-lg" value="{{ $timeLimit->in }}" name="in">
                             </div>
                             <div class="flex gap-2 items-center">
                                 <label class="font-semibold text-md">Jam Pulang :</label>
-                                <input type="time" class="border border-black p-1 rounded-lg" value="{{ $timeLimit->out }}" name="out">
+                                <input type="time" class="border border-white p-1 rounded-lg" value="{{ $timeLimit->out }}" name="out">
                             </div>
                         </div>
 

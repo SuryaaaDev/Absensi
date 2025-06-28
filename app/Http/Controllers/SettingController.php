@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Mode;
 use App\Models\TimeLimit;
 use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class SettingController extends Controller
 {
@@ -28,6 +29,7 @@ class SettingController extends Controller
         Mode::create([
             'mode_name' => $newMode,
         ]);
+        Alert::success('Success', 'Mode absen berhasil diperbarui!');
 
         return redirect()->route('settings');
     }
@@ -48,7 +50,8 @@ class SettingController extends Controller
         $timeLimit->in = $request->in;
         $timeLimit->out = $request->out;
         $timeLimit->save();
-
+        
+        Alert::success('Success', 'Batas waktu berhasil diperbarui!');
         return redirect()->back()->with('success', 'Waktu berhasil disimpan.');
     }
 }
