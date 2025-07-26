@@ -8,11 +8,11 @@
     <div class="p-5 ml-17 sm:ml-64">
         <h2 class="text-xl font-bold mb-4">Rekap Absensi Bulan {{ now()->translatedFormat('F Y') }}</h2>
 
-        <div class="overflow-auto">
-            <table class="min-w-full border text-sm text-center bg-white shadow">
+        <div class="overflow-x-auto m-auto rounded border border-gray-300 shadow-sm bg-white">
+            <table class="min-w-full border text-center bg-white shadow">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-2 py-1 border">Nama</th>
+                        <th class="px-2 py-1 border sticky left-0 bg-gray-100 z-10">Nama</th>
                         <th class="px-2 py-1 border">Kelas</th>
                         @foreach ($dateHeaders as $header)
                             <th class="px-2 py-1 border">
@@ -25,8 +25,28 @@
                 <tbody>
                     @foreach ($students as $student)
                         <tr>
-                            <td class="px-2 py-1 border text-left font-semibold">{{ $student->name }}</td>
-                            <td class="px-2 py-1 border">{{ $student->class->class_name ?? '-' }}</td>
+                            <td class="px-2 py-1 border whitespace-nowrap text-left font-semibold sticky left-0 bg-white z-50">
+                                <a href="{{ route('student.detail', [
+                                    'id' => $student->id,
+                                    'name' => Str::slug($student->name),
+                                ]) }}"
+                                    class="cursor-pointer hover:underline">{{ $student->name }}</a>
+                            </td>
+                            <td class="px-2 py-1 border whitespace-nowrap">
+                                @if ($student->class && $student->class->id && $student->class->class_name)
+                                    <a href="{{ route('show.class', [
+                                        'id' => $student->class->id,
+                                        'slug' => Str::slug($student->class->class_name),
+                                    ]) }}"
+                                        class="cursor-pointer hover:underline">
+                                        {{ $student->class->class_name }}
+                                    </a>
+                                @else
+                                    <a href="{{ route('classes') }}" class="text-gray-500 italic hover:underline">
+                                        -
+                                    </a>
+                                @endif
+                            </td>
                             @foreach ($dateHeaders as $header)
                                 @php
                                     $isSunday = $header['dow'] === 'Minggu';
@@ -47,11 +67,11 @@
                                 @endphp
 
                                 @if ($isSunday)
-                                    <td class="px-1 py-1 bg-gray-200 text-xs text-red-600">
-                                        <div class="rotate-90 whitespace-nowrap font-bold">LIBUR</div>
+                                    <td class="px-1 py-1 bg-gray-100 text-xs text-red-600">
+                                        <div class="whitespace-nowrap font-bold">LIBUR</div>
                                     </td>
                                 @else
-                                    <td class="px-1 py-1 border text-xs {{ $bgClass }}">
+                                    <td class="px-1.5 py-1 border text-sm {{ $bgClass }}">
                                         @if ($record)
                                             <div>
                                                 {{ $record->time_in ? \Carbon\Carbon::parse($record->time_in)->format('H:i') : '-' }}
@@ -72,7 +92,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="flex mt-5 flex-wrap">
+        <div class="flex mt-5 flex-wrap gap-2">
             <div class="flex flex-col gap-1 mb-4 sm:mb-0">
                 <h1 class="font-bold">Keterangan</h1>
                 <div class="flex gap-2">
@@ -104,9 +124,9 @@
                 <div class="flex">
                     <div class="px-2 py-3 border w-max h-max text-center rounded-md">
                         <div>
-                            22.20
+                            07.00
                         </div>
-                        <div class="text-gray-700 text-sm">09.20</div>
+                        <div class="text-gray-700 text-sm">15.30</div>
                     </div>
                     <div>
                         <div class="flex justify-center items-center">

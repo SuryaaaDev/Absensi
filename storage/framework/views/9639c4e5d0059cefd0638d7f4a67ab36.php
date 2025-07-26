@@ -1,66 +1,135 @@
-
-
 <?php $__env->startSection('navbar'); ?>
     <?php echo $__env->make('admin.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <div class="w-3/4 ml-70">
-        <div class="p-10 grid gird-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-10 h-10 text-black">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Siswa</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span><?php echo e($users); ?> siswa</span>
-                        </p>
-                    </div>
+    <div class="p-5 ml-17 sm:ml-64">
+        <h1 class="text-2xl font-bold mb-4">Dashboard Absensi</h1>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Total Siswa</h3>
+                <p class="text-2xl font-bold text-blue-600"><?php echo e($totalStudents); ?></p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Hadir Hari Ini</h3>
+                <p class="text-2xl font-bold text-green-600"><?php echo e($presentToday); ?></p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Ijin Hari Ini</h3>
+                <p class="text-2xl font-bold text-amber-600"><?php echo e($permitToday); ?></p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Alpha Hari Ini</h3>
+                <p class="text-2xl font-bold text-red-600"><?php echo e($alphaToday); ?></p>
+            </div>
+        </div>
+
+        <div class="flex flex-col md:flex-row w-full gap-4 mb-6">
+            <div class="bg-white rounded-2xl shadow p-4 w-full md:w-3/4 h-auto">
+                <h3 class="text-lg font-semibold mb-2">Kehadiran 7 Hari Terakhir</h3>
+                <div class="relative h-[300px]">
+                    <canvas id="barChart"></canvas>
                 </div>
             </div>
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg class="w-10 h-10 text-black" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                            fill="none" viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M3.78552 9.5 12.7855 14l9-4.5-9-4.5-8.99998 4.5Zm0 0V17m3-6v6.2222c0 .3483 2 1.7778 5.99998 1.7778 4 0 6-1.3738 6-1.7778V11" />
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Kelas</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span><?php echo e($classes); ?> kelas</span>
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="dark:bg-white shadow-sm p-6 rounded-lg">
-                <div class="flex flex-row space-x-4 items-center">
-                    <div id="stats-1" class="bg-gray-200/75 rounded-lg p-2">
-                        <svg class="w-10 h-10 text-black"  viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <g fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" stroke-width="1.6">
-                                <path d="M17 2v2m-5-2v2M7 2v2m-3.5 6c0-3.3 0-4.95 1.025-5.975S7.2 3 10.5 3h3c3.3 0 4.95 0 5.975 1.025S20.5 6.7 20.5 10v5c0 3.3 0 4.95-1.025 5.975S16.8 22 13.5 22h-3c-3.3 0-4.95 0-5.975-1.025S3.5 18.3 3.5 15zm10 6H17m-3.5-7H17"/>
-                                <path d="M7 10s.5 0 1 1c0 0 1.588-2.5 3-3m-4 9s.5 0 1 1c0 0 1.588-2.5 3-3"/>
-                            </g>
-                        </svg>
-                    </div>
-                    <div>
-                        <p class="text-gray-400 text-sm font-medium uppercase leading-4">Total Absensi</p>
-                        <p class="text-black font-bold text-2xl inline-flex items-center space-x-2">
-                            <span><?php echo e($attendances); ?> tercatat</span>
-                        </p>
-                    </div>
+            <div class="bg-white rounded-2xl shadow p-4 w-full md:w-1/2 h-auto">
+                <h3 class="text-lg font-semibold mb-2">Distribusi Status Hari Ini</h3>
+                <div class="relative h-[300px]">
+                    <canvas id="pieChart"></canvas>
                 </div>
             </div>
         </div>
+
+
+        <div class="bg-white rounded-2xl shadow p-4 overflow-x-auto">
+            <h3 class="text-lg font-semibold mb-4">Data Kehadiran Terbaru</h3>
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-100">
+                    <tr>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-100">
+                    <?php $__currentLoopData = $recentAttendances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $att): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <tr>
+                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->student->name); ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->attendance_date); ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_in ?? '-'); ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_out ?? '-'); ?></td>
+                            <td class="px-4 py-2 whitespace-nowrap rounded-lg">
+                                <span
+                                    class="inline-flex font-semibold px-3 py-0.5 rounded-full
+                                    <?php if($att->status->id == 1): ?> text-red-600 bg-red-100
+                                    <?php elseif($att->status->id == 2): ?> text-emerald-600 bg-emerald-100
+                                    <?php elseif($att->status->id == 3): ?> text-blue-600 bg-blue-100
+                                    <?php else: ?> text-amber-600 bg-amber-100 <?php endif; ?>
+                                    "><?php echo e($att->status->status_name); ?></span>
+                            </td>
+                        </tr>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
+            </table>
+            <div class="sticky left-0 flex justify-center mt-5">
+                <a href="<?php echo e(route('attendance.monthly')); ?>"
+                    class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                    Lihat Semua Data Absen
+                </a>
+            </div>
+        </div>
     </div>
+
+    <script>
+        const barCtx = document.getElementById('barChart').getContext('2d');
+        const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieLabels = <?php echo json_encode($pieLabels); ?>;
+        const pieData = <?php echo json_encode($pieData); ?>;
+        const pieColors = <?php echo json_encode($pieColors); ?>;
+
+        new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($attendancePerDay->pluck('date')); ?>,
+                datasets: [{
+                    label: 'Jumlah Kehadiran',
+                    data: <?php echo json_encode($attendancePerDay->pluck('count')); ?>,
+                    backgroundColor: '#3b82f6'
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        if (pieData.length > 0) {
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        data: pieData,
+                        backgroundColor: pieColors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        } else {
+            document.getElementById('pieChart').parentElement.innerHTML =
+                `<div class='flex flex-col justify-center items-center h-full'><svg xmlns="http://www.w3.org/2000/svg" class='w-36 h-36 text-gray-500' viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.63 5.643a9 9 0 0 0 12.742 12.715m1.674-2.29A9.03 9.03 0 0 0 20.8 14a1 1 0 0 0-1-1H17m-4 0a2 2 0 0 1-2-2m0-4V4a.9.9 0 0 0-1-.8a9 9 0 0 0-2.057.749M15 3.5A9 9 0 0 1 20.5 9H16a1 1 0 0 1-1-1V3.5M3 3l18 18"/></svg><p class='text-center text-gray-500'>Tidak ada data hari ini</p></div>`;
+        }
+    </script>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layout.app', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?><?php /**PATH C:\laragon\www\absensi-siswa\resources\views/admin/dashboard.blade.php ENDPATH**/ ?>

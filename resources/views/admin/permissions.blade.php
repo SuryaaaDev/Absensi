@@ -23,6 +23,21 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200">
+                    @if ($permissions->isEmpty())
+                        <tr>
+                            <td colspan="8" class="py-16 whitespace-nowrap">
+                                <div class="flex flex-col items-center justify-center text-center text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-25 h-25">
+                                        <path
+                                            d="M384 480l48 0c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224l-400 0c-11.4 0-21.9 6-27.6 15.9L48 357.1 48 96c0-8.8 7.2-16 16-16l117.5 0c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8L416 144c8.8 0 16 7.2 16 16l0 32 48 0 0-32c0-35.3-28.7-64-64-64L298.5 96c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l23.7 0L384 480z" />
+                                    </svg>
+                                    <h2 class="text-2xl font-semibold text-gray-800 mt-1">Belum Ada Perizinan</h2>
+                                    <p class="mt-2 text-gray-500">Belum ada siswa yang mengajukan perizinan.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    @endif
+
                     @foreach ($permissions as $permission)
                         <tr class="*:text-gray-900 *:first:font-medium">
                             <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
@@ -30,7 +45,8 @@
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->name }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->class->class_name }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->telepon }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap">{{ $permission->explanation->status_name ?? '-' }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $permission->explanation->status_name ?? '-' }}
+                            </td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 <img src="{{ asset('storage/' . $permission->image) }}" alt="Preview"
                                     class="w-18 h-18 rounded-md cursor-zoom-in"
@@ -106,7 +122,9 @@
                                             </svg>
 
                                         </div>
-                                        <p class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">Apakah anda yakin menyetujui permohonan
+                                        <p
+                                            class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">
+                                            Apakah anda yakin menyetujui permohonan
                                             izin
                                             ini?</p>
                                         <form action="{{ route('accepted', $permission->id) }}" method="POST">
@@ -170,6 +188,7 @@
                             </td>
                         </tr>
                     @endforeach
+                </tbody>
             </table>
         </div>
 

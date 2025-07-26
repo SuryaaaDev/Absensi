@@ -8,7 +8,7 @@
     <div class="p-5 ml-17 sm:ml-64">
         <h1 class="text-2xl font-bold mb-4">Dashboard Absensi</h1>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
             <div class="bg-white rounded-2xl shadow p-4 text-center">
                 <h3 class="text-md font-bold text-gray-500">Total Siswa</h3>
                 <p class="text-2xl font-bold text-blue-600">{{ $totalStudents }}</p>
@@ -18,8 +18,12 @@
                 <p class="text-2xl font-bold text-green-600">{{ $presentToday }}</p>
             </div>
             <div class="bg-white rounded-2xl shadow p-4 text-center">
-                <h3 class="text-md font-bold text-gray-500">Terlambat Hari Ini</h3>
-                <p class="text-2xl font-bold text-red-600">{{ $lateToday }}</p>
+                <h3 class="text-md font-bold text-gray-500">Ijin Hari Ini</h3>
+                <p class="text-2xl font-bold text-amber-600">{{ $permitToday }}</p>
+            </div>
+            <div class="bg-white rounded-2xl shadow p-4 text-center">
+                <h3 class="text-md font-bold text-gray-500">Alpha Hari Ini</h3>
+                <p class="text-2xl font-bold text-red-600">{{ $alphaToday }}</p>
             </div>
         </div>
 
@@ -44,39 +48,48 @@
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-4 py-2 text-left">Nama</th>
-                        <th class="px-4 py-2 text-left">Tanggal</th>
-                        <th class="px-4 py-2 text-left">Masuk</th>
-                        <th class="px-4 py-2 text-left">Pulang</th>
-                        <th class="px-4 py-2 text-left">Status</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
+                        <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     @foreach ($recentAttendances as $att)
                         <tr>
-                            <td class="px-4 py-2">{{ $att->student->name }}</td>
-                            <td class="px-4 py-2">{{ $att->attendance_date }}</td>
-                            <td class="px-4 py-2">{{ $att->time_in }}</td>
-                            <td class="px-4 py-2">{{ $att->time_out }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->student->name }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->attendance_date }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_in ?? '-' }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_out ?? '-' }}</td>
                             <td class="px-4 py-2 whitespace-nowrap rounded-lg">
                                 <span
-                                    class="inline-flex font-semibold
-                                    @if ($att->status->id == 1) text-red-700
-                                    @elseif($att->status->id == 2) text-emerald-700
-                                    @elseif($att->status->id == 3) text-blue-700
-                                    @else text-amber-700 @endif
+                                    class="inline-flex font-semibold px-3 py-0.5 rounded-full
+                                    @if ($att->status->id == 1) text-red-600 bg-red-100
+                                    @elseif($att->status->id == 2) text-emerald-600 bg-emerald-100
+                                    @elseif($att->status->id == 3) text-blue-600 bg-blue-100
+                                    @else text-amber-600 bg-amber-100 @endif
                                     ">{{ $att->status->status_name }}</span>
                             </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
+            <div class="sticky left-0 flex justify-center mt-5">
+                <a href="{{ route('attendance.monthly') }}"
+                    class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
+                    Lihat Semua Data Absen
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
         const barCtx = document.getElementById('barChart').getContext('2d');
         const pieCtx = document.getElementById('pieChart').getContext('2d');
+        const pieLabels = {!! json_encode($pieLabels) !!};
+        const pieData = {!! json_encode($pieData) !!};
+        const pieColors = {!! json_encode($pieColors) !!};
 
         new Chart(barCtx, {
             type: 'bar',
@@ -99,19 +112,24 @@
             }
         });
 
-        new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: {!! json_encode($statusCounts->pluck('status_name')) !!},
-                datasets: [{
-                    data: {!! json_encode($statusCounts->pluck('attendances_count')) !!},
-                    backgroundColor: ['#ef4444', '#10b981', '#3b82f6', '#f59e0b']
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
-        });
+        if (pieData.length > 0) {
+            new Chart(pieCtx, {
+                type: 'pie',
+                data: {
+                    labels: pieLabels,
+                    datasets: [{
+                        data: pieData,
+                        backgroundColor: pieColors
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        } else {
+            document.getElementById('pieChart').parentElement.innerHTML =
+                `<div class='flex flex-col justify-center items-center h-full'><svg xmlns="http://www.w3.org/2000/svg" class='w-36 h-36 text-gray-500' viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.63 5.643a9 9 0 0 0 12.742 12.715m1.674-2.29A9.03 9.03 0 0 0 20.8 14a1 1 0 0 0-1-1H17m-4 0a2 2 0 0 1-2-2m0-4V4a.9.9 0 0 0-1-.8a9 9 0 0 0-2.057.749M15 3.5A9 9 0 0 1 20.5 9H16a1 1 0 0 1-1-1V3.5M3 3l18 18"/></svg><p class='text-center text-gray-500'>Tidak ada data hari ini</p></div>`;
+        }
     </script>
 @endsection

@@ -2,16 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
-use App\Models\Mode;
-use App\Models\Permission;
 use App\Models\Status;
 use App\Models\Student;
-use App\Models\StudentClass;
-use GuzzleHttp\Client;
+use App\Models\Attendance;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
 {
@@ -20,11 +18,19 @@ class AdminController extends Controller
         $today = now()->toDateString();
 
         $totalStudents = Student::count();
-        $presentToday = Attendance::whereDate('attendance_date', $today)->count();
-        $lateToday = Attendance::whereDate('attendance_date', $today)
-                                ->whereHas('status', function ($q) {
-                                    $q->where('status_name', 'Terlambat');
-                                })->count();
+        $presentToday = Attendance::whereDate('attendance_date', $today)
+            ->whereHas('status', function ($q) {
+                $q->where('status_name', 'Hadir');
+            })->count();
+        $permitToday = Attendance::whereDate('attendance_date', $today)
+            ->whereHas('status', function ($q) {
+                $q->whereNotIn('status_name', ['Alpha', 'Terlambat', 'Hadir']);
+            })
+            ->count();
+        $alphaToday = Attendance::whereDate('attendance_date', $today)
+            ->whereHas('status', function ($q) {
+                $q->where('status_name', 'Alpha');
+            })->count();
 
         // Chart data: attendance per day (last 7 days)
         $last7Days = collect(range(0, 6))->map(function ($i) {
@@ -34,25 +40,48 @@ class AdminController extends Controller
         $attendancePerDay = $last7Days->map(function ($date) {
             return [
                 'date' => $date,
-                'count' => Attendance::whereDate('attendance_date', $date)->count()
+                'count' => Attendance::whereDate('attendance_date', $date)
+                    ->whereHas('status', function ($q) {
+                        $q->where('status_name', 'Hadir');
+                    })->count()
             ];
         });
 
         // Pie chart data: status distribution
-        $statusCounts = Status::withCount(['attendance' => function ($q) use ($today) {
+        $rawStatusCounts = Status::withCount(['attendance' => function ($q) use ($today) {
             $q->whereDate('attendance_date', $today);
         }])->get();
 
-        // Recent attendance records
+        // Filter yang attendance_count > 0
+        $filtered = $rawStatusCounts->filter(fn($s) => $s->attendance_count > 0)->values();
+
+        $pieLabels = $filtered->pluck('status_name')->values();
+        $pieData = $filtered->pluck('attendance_count')->values();
+        $pieColors = $filtered->map(function ($s) {
+            return match (Str::lower($s->status_name)) {
+                'alpha' => '#ef4444',
+                'hadir' => '#10b981',
+                'terlambat' => '#3b82f6',
+                default => '#facc15',
+            };
+        })->values();
+
         $recentAttendances = Attendance::with(['student', 'status'])
             ->orderByDesc('attendance_date')
             ->orderByDesc('time_in')
-            ->limit(10)
+            ->limit(12)
             ->get();
 
         return view('admin.dashboard', compact(
-            'totalStudents', 'presentToday', 'lateToday',
-            'attendancePerDay', 'statusCounts', 'recentAttendances'
+            'totalStudents',
+            'presentToday',
+            'permitToday',
+            'alphaToday',
+            'attendancePerDay',
+            'pieLabels',
+            'pieData',
+            'pieColors',
+            'recentAttendances'
         ));
     }
 
@@ -64,5 +93,31 @@ class AdminController extends Controller
         }
 
         return view('admin.profile', compact('user'));
+    }
+
+    public function updateProfile(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:75',
+            'email' => 'required|email',
+            'telepon' => 'required|string|max:14',
+            'password' => 'nullable|min:3',
+        ]);
+
+        $name = Str::title($request->name);
+
+        $user = User::findOrFail($id);
+        $user->name = $name;
+        $user->email = $request->email;
+        $user->telepon = $request->telepon;
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+        Alert::success('Success', 'Profil berhasil diperbarui!');
+
+        return redirect()->back();
     }
 }

@@ -1,7 +1,7 @@
 <div class="fixed">
     <div
         class="flex flex-col w-17 sm:w-64 h-screen px-2 sm:px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 transition-all duration-300">
-        <a href="/dashboard" class="flex justify-center items-center">
+        <a href="{{ route('dashboard') }}" class="flex justify-center items-center">
             <img class="w-auto h-10 sm:h-16" src="{{ asset('storage/image/logo-smk2klt.png') }}" alt="logo smkn 2 klaten">
             <h1 class="text-gray-100 font-bold text-lg hidden sm:block">SMK N 2 KLATEN</h1>
         </a>
@@ -23,7 +23,7 @@
         <div class="flex flex-col justify-between flex-1 mt-6">
             <nav>
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('dashboard') ? 'bg-gray-100 dark:bg-gray-800' : '' }}"
-                    href="/dashboard">
+                    href="{{ route('dashboard') }}">
                     <svg class="w-5 h-5 {{ request()->is('dashboard*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -36,7 +36,7 @@
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('students*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/students">
+                    href="{{ route('students') }}">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 {{ request()->is('students*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 16 16">
@@ -49,7 +49,7 @@
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('classes*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/classes">
+                    href="{{ route('classes') }}">
                     <svg class="w-5 h-5 {{ request()->is('classes*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
@@ -61,7 +61,7 @@
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('statuses*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/statuses">
+                    href="{{ route('statuses') }}">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 {{ request()->is('statuses*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 16 16">
@@ -74,7 +74,7 @@
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('attendances*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/attendances">
+                    href="{{ route('attendances') }}">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 {{ request()->is('attendances*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 24 24">
@@ -87,7 +87,7 @@
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('attendance/monthly*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/attendance/monthly">
+                    href="{{ route('attendance.monthly') }}">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 {{ request()->is('attendance/monthly*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 24 24">
@@ -99,11 +99,12 @@
                         </g>
                     </svg>
                     <span
-                        class="mx-4 font-medium hidden sm:inline {{ request()->is('attendance/monthly*') ? 'text-gray-700 dark:text-gray-200' : '' }}">Rekap Absen</span>
+                        class="mx-4 font-medium hidden sm:inline {{ request()->is('attendance/monthly*') ? 'text-gray-700 dark:text-gray-200' : '' }}">Rekap
+                        Absen</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('permissions*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/permissions">
+                    href="{{ route('permissions') }}">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 {{ request()->is('permissions*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 16 16">
@@ -118,7 +119,7 @@
                 <hr class="my-6 border-gray-200 dark:border-gray-600" />
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 {{ request()->is('settings*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : '' }}"
-                    href="/settings">
+                    href="{{ route('settings') }}">
                     <svg class="w-5 h-5 {{ request()->is('settings*') ? 'text-gray-700 dark:text-gray-200' : '' }}"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -142,7 +143,7 @@
                     x-transition:leave-start="opacity-100 translate-y-0"
                     x-transition:leave-end="opacity-0 translate-y-2" x-cloak
                     class="absolute w-max left-5/6 bottom-20 py-2 px-2 bg-gray-800 rounded-md shadow-2xl z-50">
-                    <a href="/profile/admin"
+                    <a href="{{ route('admin.profile') }}"
                         class="group flex gap-1 items-center px-4 py-2 text-sm text-gray-300 rounded-lg hover:bg-gray-700 hover:text-gray-200 {{ request()->is('profile/admin*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-200' : '' }}">
                         <svg class="flex-shrink-0 w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="none" viewBox="0 0 24 24">
@@ -150,9 +151,9 @@
                                 stroke-width="1.9"
                                 d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
-                        
-                    <span
-                        class="font-medium text-gray-300 hover:text-gray-200 {{ request()->is('profile/admin*') ? 'text-gray-700 dark:text-gray-200' : '' }}">Profil</span>
+
+                        <span
+                            class="font-medium text-gray-300 hover:text-gray-200 {{ request()->is('profile/admin*') ? 'text-gray-700 dark:text-gray-200' : '' }}">Profil</span>
                     </a>
                     <form action="{{ route('logout') }}" method="POST" class="">
                         @csrf

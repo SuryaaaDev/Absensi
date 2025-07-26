@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Student;
 use Illuminate\Support\Str;
 use App\Models\StudentClass;
 use Illuminate\Http\Request;
@@ -33,8 +34,8 @@ class StudentClassController extends Controller
         $classes = StudentClass::all();
 
         $classes = $classes->sort(function ($a, $b) {
-            preg_match('/^([IVXLCDM]+)[^\w]*([A-Z])?/i', $a->class_name, $matchA);
-            preg_match('/^([IVXLCDM]+)[^\w]*([A-Z])?/i', $b->class_name, $matchB);
+            preg_match('/^([IVXLCDM]+).*?([A-Z])$/i', $a->class_name, $matchA);
+            preg_match('/^([IVXLCDM]+).*?([A-Z])$/i', $b->class_name, $matchB);
 
             $romawiA = $matchA[1] ?? '';
             $romawiB = $matchB[1] ?? '';
@@ -56,7 +57,7 @@ class StudentClassController extends Controller
     public function addClass(Request $request)
     {
         $validated = $request->validate([
-            'class_name' => 'required|string|max:10',
+            'class_name' => 'regex:/^([IVXLCDM]+)[\s\S]*[A-Z]$/i'
         ]);
 
         $name = Str::upper($request->class_name);
@@ -72,7 +73,7 @@ class StudentClassController extends Controller
     public function editClass(Request $request, $id)
     {
         $validated = $request->validate([
-            'class_name' => 'required|string|max:10',
+            'class_name' => 'regex:/^([IVXLCDM]+)[\s\S]*[A-Z]$/i'
         ]);
 
         $name = Str::upper($request->class_name);
@@ -93,5 +94,23 @@ class StudentClassController extends Controller
         Alert::success('Success', 'Kelas berhasil dihapus!');
 
         return back();
+    }
+
+    public function show($id, $slug)
+    {
+        $class = StudentClass::findOrFail($id);
+
+        if (Str::slug($class->class_name) !== $slug) {
+            return redirect()->route('show.class', [
+                'id' => $class->id,
+                'slug' => Str::slug($class->class_name),
+            ]);
+        }
+
+        $students = Student::where('class_id', $class->id)
+            ->orderBy('absen')
+            ->get();
+
+        return view('admin.show-class', compact('class', 'students'));
     }
 }

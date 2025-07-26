@@ -50,7 +50,7 @@
                     </span>
                 </a>
 
-                <a href="/login"
+                <a href="{{ route('login') }}"
                     class="inline-flex items-center justify-center w-full px-4 py-2.5 mt-4 overflow-hidden text-sm text-white transition-colors duration-300 bg-blue-600 rounded-lg shadow sm:w-auto sm:mx-2 sm:mt-0 hover:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2 fill-current" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">

@@ -1,51 +1,11 @@
-
-
 <?php $__env->startSection('navbar'); ?>
     <?php echo $__env->make('admin.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('content'); ?>
-    <?php if(session('reject')): ?>
-        <div class="fixed z-10 top-4 right-4">
-            <div class="flex items-start w-full gap-4 px-4 py-3 text-sm text-pink-500 border border-pink-100 rounded bg-pink-50"
-                role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="1.5" role="graphics-symbol" aria-labelledby="title-09 desc-09">
-                    <title id="title-09">Icon title</title>
-                    <desc id="desc-09">A more detailed description of the icon</desc>
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                    <h3 class="mb-2 font-semibold">Ditolak!</h3>
-                    <p><?php echo e(session('reject')); ?></p>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-
-    <?php if(session('success')): ?>
-        <div class="fixed z-10 top-4 right-4">
-            <div class="flex items-start w-full gap-4 px-4 py-3 text-sm border rounded border-emerald-100 bg-emerald-50 text-emerald-500"
-                role="alert">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 shrink-0" fill="none" viewBox="0 0 24 24"
-                    stroke="currentColor" stroke-width="1.5" role="graphics-symbol" aria-labelledby="title-06 desc-06">
-                    <title id="title-06">Icon title</title>
-                    <desc id="desc-06">A more detailed description of the icon</desc>
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                <div>
-                    <h3 class="mb-2 font-semibold">Success</h3>
-                    <p><?php echo e(session('success')); ?></p>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
-    
-    <div class="p-10 ml-64">
+    <div class="p-5 ml-17 sm:ml-64">
         <h1 class="text-center text-2xl font-bold pb-4">Permohonan Izin</h1>
-        <div class="overflow-x-auto w-3/4 m-auto rounded border border-gray-300 shadow-sm bg-white">
+        <div class="overflow-x-auto rounded border border-gray-300 shadow-sm bg-white">
             <table class="min-w-full divide-y-2 divide-gray-200">
                 <thead class="ltr:text-left rtl:text-right">
                     <tr class="*:font-medium *:text-gray-900">
@@ -61,6 +21,21 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200">
+                    <?php if($permissions->isEmpty()): ?>
+                        <tr>
+                            <td colspan="8" class="py-16 whitespace-nowrap">
+                                <div class="flex flex-col items-center justify-center text-center text-gray-600">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" class="w-25 h-25">
+                                        <path
+                                            d="M384 480l48 0c11.4 0 21.9-6 27.6-15.9l112-192c5.8-9.9 5.8-22.1 .1-32.1S555.5 224 544 224l-400 0c-11.4 0-21.9 6-27.6 15.9L48 357.1 48 96c0-8.8 7.2-16 16-16l117.5 0c4.2 0 8.3 1.7 11.3 4.7l26.5 26.5c21 21 49.5 32.8 79.2 32.8L416 144c8.8 0 16 7.2 16 16l0 32 48 0 0-32c0-35.3-28.7-64-64-64L298.5 96c-17 0-33.3-6.7-45.3-18.7L226.7 50.7c-12-12-28.3-18.7-45.3-18.7L64 32C28.7 32 0 60.7 0 96L0 416c0 35.3 28.7 64 64 64l23.7 0L384 480z" />
+                                    </svg>
+                                    <h2 class="text-2xl font-semibold text-gray-800 mt-1">Belum Ada Perizinan</h2>
+                                    <p class="mt-2 text-gray-500">Belum ada siswa yang mengajukan perizinan.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    <?php endif; ?>
+
                     <?php $__currentLoopData = $permissions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $permission): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                         <tr class="*:text-gray-900 *:first:font-medium">
                             <td class="px-3 py-2 whitespace-nowrap"><?php echo e($loop->iteration); ?></td>
@@ -68,7 +43,9 @@
                             <td class="px-3 py-2 whitespace-nowrap"><?php echo e($permission->student->name); ?></td>
                             <td class="px-3 py-2 whitespace-nowrap"><?php echo e($permission->student->class->class_name); ?></td>
                             <td class="px-3 py-2 whitespace-nowrap"><?php echo e($permission->student->telepon); ?></td>
-                            <td class="px-3 py-2 whitespace-nowrap"><?php echo e($permission->explanation->status_name); ?></td>
+                            <td class="px-3 py-2 whitespace-nowrap"><?php echo e($permission->explanation->status_name ?? '-'); ?>
+
+                            </td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 <img src="<?php echo e(asset('storage/' . $permission->image)); ?>" alt="Preview"
                                     class="w-18 h-18 rounded-md cursor-zoom-in"
@@ -98,54 +75,65 @@
                                     </span>
 
                                     <section popover id="rejected-<?php echo e($permission->id); ?>"
-                                        class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">
-                                        <div class="flex justify-center">
-                                            <svg class="text-red-700 w-32 h-32" viewBox="-2 -2 24 24"
+                                        class="w-full max-w-sm px-2 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 overflow-hidden">
+
+                                        <div class="flex justify-center mb-4">
+                                            <svg class="text-red-700 w-20 h-20 sm:w-32 sm:h-32" viewBox="-2 -2 24 24"
                                                 xmlns="http://www.w3.org/2000/svg">
                                                 <path
                                                     d="M10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm0-13a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1zm0 10a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
                                                     fill="currentColor" />
                                             </svg>
                                         </div>
-                                        <p class="text-gray-700 dark:text-gray-200">Apakah anda yakin menolak permohonan
-                                            izin
-                                            ini?</p>
+
+                                        <div class="text-center">
+                                            <p
+                                                class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">
+                                                Apakah anda yakin menolak permohonan izin ini?
+                                            </p>
+                                        </div>
+
                                         <form action="<?php echo e(route('rejected', $permission->id)); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
                                             <div class="flex justify-end mt-6 gap-2">
                                                 <button popovertarget="rejected-<?php echo e($permission->id); ?>"
-                                                    popovertargetaction="hide"
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                                                    type="button">Batal</button>
-                                                <button
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-600"
-                                                    type="submit">Tolak</button>
+                                                    popovertargetaction="hide" type="button"
+                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-60">
+                                                    Batal
+                                                </button>
+                                                <button type="submit"
+                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-60">
+                                                    Tolak
+                                                </button>
                                             </div>
                                         </form>
                                     </section>
 
+
                                     <section popover id="accepted-<?php echo e($permission->id); ?>"
-                                        class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">
+                                        class="w-full max-w-sm px-2 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 overflow-hidden">
                                         <div class="flex justify-center">
                                             <svg class="text-green-700 w-32 h-32" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                stroke="currentColor" class="size-6">
+                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                class="size-6">
                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                     d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
                                             </svg>
 
                                         </div>
-                                        <p class="text-gray-700 dark:text-gray-200">Apakah anda yakin menyetujui permohonan
+                                        <p
+                                            class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">
+                                            Apakah anda yakin menyetujui permohonan
                                             izin
                                             ini?</p>
                                         <form action="<?php echo e(route('accepted', $permission->id)); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
-                                            <label class="relative flex flex-wrap items-center">
+                                            <label class="relative flex items-center">
                                                 <input
                                                     class="w-4 h-4 transition-colors bg-white border-2 rounded appearance-none cursor-pointer focus-visible:outline-none peer border-slate-500 checked:border-emerald-500 checked:bg-emerald-500 checked:hover:border-emerald-600 checked:hover:bg-emerald-600 focus:outline-none checked:focus:border-emerald-700 checked:focus:bg-emerald-700 checked:ring-2 checked:ring-emerald-600 hover:ring-2 hover:ring-emerald-600 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-50"
                                                     type="checkbox" required />
                                                 <span
-                                                    class="pl-2 cursor-pointer text-gray-700 dark:text-gray-200 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400">
+                                                    class="pl-2 cursor-pointer text-gray-700 dark:text-gray-200 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 break-words whitespace-normal leading-relaxed">
                                                     Surat sudah sesuai dengan ketentuan
                                                 </span>
                                                 <svg class="absolute left-0 w-4 h-4 transition-all duration-300 -rotate-90 opacity-0 pointer-events-none top-1 fill-white stroke-white peer-checked:rotate-0 peer-checked:opacity-100 peer-disabled:cursor-not-allowed"
@@ -199,6 +187,7 @@
                             </td>
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </tbody>
             </table>
         </div>
 

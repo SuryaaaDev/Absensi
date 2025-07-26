@@ -32,7 +32,9 @@ class MonthlyAttendanceController extends Controller
 
         $students = Student::with(['attendance' => function ($query) use ($month) {
             $query->where('attendance_date', 'like', "$month%");
-        }, 'class'])->get();
+        }, 'class'])
+            ->orderBy('absen')
+            ->get();
 
         $status = Status::where('id', '>=', 4)->get();
 

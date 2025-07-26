@@ -85,7 +85,6 @@
             });
         }
 
-
         // setInterval(reloadAttendanceTable, 3000);
         setInterval(checkScanAPI, 3000);
     </script>

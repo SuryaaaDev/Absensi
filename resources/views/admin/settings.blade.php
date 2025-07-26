@@ -34,11 +34,13 @@
                 <div class="flex flex-col gap-2 mt-2">
                     <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Masuk :</label>
-                        <span class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->in }}</span>
+                        <span
+                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->in }}</span>
                     </div>
                     <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Pulang :</label>
-                        <span class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->out }}</span>
+                        <span
+                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->out }}</span>
                     </div>
                 </div>
                 <div class="flex justify-end h-full mt-5 sm:mt-16">
@@ -55,39 +57,47 @@
                     </button>
                 </div>
 
-                <section popover id="edit-time"
-                    class="max-w-4xl w-11/12 sm:w-1/2 lg:w-1/4 p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 text-gray-700 dark:text-gray-200">
-                    <button type="button" popovertarget="edit-time" popovertargetaction="hide"
-                        class="cursor-pointer absolute right-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                        <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-gray-500" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                            viewBox="0 0 24 24">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18 17.94 6M18 18 6.06 6" />
-                        </svg>
-                    </button>
-
-                    <h2 class="text-lg font-semibold capitalize">Edit Batas Waktu</h2>
-                    <form action="{{ route('time') }}" method="POST">
-                        @csrf
-
-                        <div class="flex flex-col gap-2 mt-4 ">
-                            <div class="flex gap-2 items-center">
-                                <label class="font-semibold text-md">Jam Masuk :</label>
-                                <input type="time" class="border border-white p-1 rounded-lg" value="{{ $timeLimit->in }}" name="in">
+                <section popover id="edit-time">
+                    <div
+                        class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
+                        <div
+                            class="max-w-4xl w-11/12 sm:w-1/2 lg:w-1/4 p-6 m-auto bg-white rounded-md shadow-md z-10 text-gray-700">
+                            <div class="flex w-full justify-end">
+                                <button type="button" popovertarget="edit-time" popovertargetaction="hide"
+                                    class="cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                                    <svg class="w-6 h-6 text-gray-800 hover:text-gray-500"
+                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                        fill="none" viewBox="0 0 24 24">
+                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                    </svg>
+                                </button>
                             </div>
-                            <div class="flex gap-2 items-center">
-                                <label class="font-semibold text-md">Jam Pulang :</label>
-                                <input type="time" class="border border-white p-1 rounded-lg" value="{{ $timeLimit->out }}" name="out">
-                            </div>
-                        </div>
+                            <h2 class="text-lg font-semibold capitalize">Edit Batas Waktu</h2>
+                            <form action="{{ route('time') }}" method="POST">
+                                @csrf
 
-                        <div class="flex justify-end mt-6 gap-3">
-                            <button
-                                class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                                type="submit">Save</button>
+                                <div class="flex flex-col gap-2 mt-4 ">
+                                    <div class="flex gap-2 items-center">
+                                        <label class="font-semibold text-md">Jam Masuk :</label>
+                                        <input type="time" class="border border-black p-1 rounded-lg font-semibold text-black"
+                                            value="{{ $timeLimit->in }}" name="in">
+                                    </div>
+                                    <div class="flex gap-2 items-center">
+                                        <label class="font-semibold text-md">Jam Pulang :</label>
+                                        <input type="time" class="border border-black p-1 rounded-lg font-semibold text-black"
+                                            value="{{ $timeLimit->out }}" name="out">
+                                    </div>
+                                </div>
+
+                                <div class="flex justify-end mt-6 gap-3">
+                                    <button
+                                        class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                                        type="submit">Simpan</button>
+                                </div>
+                            </form>
                         </div>
-                    </form>
+                    </div>
                 </section>
             </div>
         </div>

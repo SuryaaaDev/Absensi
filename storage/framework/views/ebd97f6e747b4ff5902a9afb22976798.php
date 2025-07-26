@@ -1,9 +1,9 @@
 <div class="fixed">
     <div
-        class="flex flex-col w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
-        <a href="#" class="flex justify-center items-center">
+        class="flex flex-col w-17 sm:w-64 h-screen px-2 sm:px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700 transition-all duration-300">
+        <a href="<?php echo e(route('dashboard')); ?>" class="flex justify-center items-center">
             <img class="w-auto h-10 sm:h-16" src="<?php echo e(asset('storage/image/logo-smk2klt.png')); ?>" alt="logo smkn 2 klaten">
-            <h1 class="text-gray-100 font-bold text-lg">SMK N 2 KLATEN</h1>
+            <h1 class="text-gray-100 font-bold text-lg hidden sm:block">SMK N 2 KLATEN</h1>
         </a>
 
         
@@ -11,7 +11,7 @@
         <div class="flex flex-col justify-between flex-1 mt-6">
             <nav>
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('dashboard') ? 'bg-gray-100 dark:bg-gray-800' : ''); ?>"
-                    href="/dashboard">
+                    href="<?php echo e(route('dashboard')); ?>">
                     <svg class="w-5 h-5 <?php echo e(request()->is('dashboard*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -20,11 +20,11 @@
                     </svg>
 
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('dashboard*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Dashboard</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('dashboard*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Dashboard</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('students*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/students">
+                    href="<?php echo e(route('students')); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 <?php echo e(request()->is('students*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 16 16">
@@ -32,12 +32,12 @@
                             d="M15 14s1 0 1-1s-1-4-5-4s-5 3-5 4s1 1 1 1h8Zm-7.978-1A.261.261 0 0 1 7 12.996c.001-.264.167-1.03.76-1.72C8.312 10.629 9.282 10 11 10c1.717 0 2.687.63 3.24 1.276c.593.69.758 1.457.76 1.72l-.008.002a.274.274 0 0 1-.014.002H7.022ZM11 7a2 2 0 1 0 0-4a2 2 0 0 0 0 4Zm3-2a3 3 0 1 1-6 0a3 3 0 0 1 6 0ZM6.936 9.28a5.88 5.88 0 0 0-1.23-.247A7.35 7.35 0 0 0 5 9c-4 0-5 3-5 4c0 .667.333 1 1 1h4.216A2.238 2.238 0 0 1 5 13c0-1.01.377-2.042 1.09-2.904c.243-.294.526-.569.846-.816ZM4.92 10A5.493 5.493 0 0 0 4 13H1c0-.26.164-1.03.76-1.724c.545-.636 1.492-1.256 3.16-1.275ZM1.5 5.5a3 3 0 1 1 6 0a3 3 0 0 1-6 0Zm3-2a2 2 0 1 0 0 4a2 2 0 0 0 0-4Z" />
                     </svg>
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('students*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Data
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('students*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Data
                         Siswa</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('classes*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/classes">
+                    href="<?php echo e(route('classes')); ?>">
                     <svg class="w-5 h-5 <?php echo e(request()->is('classes*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8"
@@ -45,11 +45,11 @@
                     </svg>
 
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('classes*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Kelas</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('classes*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Kelas</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('statuses*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/statuses">
+                    href="<?php echo e(route('statuses')); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 <?php echo e(request()->is('statuses*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 16 16">
@@ -58,23 +58,41 @@
                     </svg>
 
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('statuses*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Keterangan</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('statuses*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Keterangan</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('attendances*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/attendances">
+                    href="<?php echo e(route('attendances')); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 <?php echo e(request()->is('attendances*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 24 24">
-                        <path fill="currentColor" d="M13 5h2v14h-2V5zm-2 4H9v10h2V9zm-4 4H5v6h2v-6zm12 0h-2v6h2v-6z" />
+                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="1.5"
+                            d="M15 9.429V5a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v8.286m6-3.857V21m0-11.571h4a2 2 0 0 1 2 2V19a2 2 0 0 1-2 2h-4m0 0H9m0 0v-7.714M9 21H5a2 2 0 0 1-2-2v-3.714a2 2 0 0 1 2-2h4" />
                     </svg>
-
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('attendances*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Rekapitulasi</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('attendances*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Rekapitulasi</span>
+                </a>
+
+                <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('attendance/monthly*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
+                    href="<?php echo e(route('attendance.monthly')); ?>">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                        class="w-5 h-5 <?php echo e(request()->is('attendance/monthly*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
+                        viewBox="0 0 24 24">
+                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                            stroke-width="2">
+                            <path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2" />
+                            <path
+                                d="M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2zm0 7h.01M13 12h2m-6 4h.01M13 16h2" />
+                        </g>
+                    </svg>
+                    <span
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('attendance/monthly*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Rekap
+                        Absen</span>
                 </a>
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('permissions*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/permissions">
+                    href="<?php echo e(route('permissions')); ?>">
                     <svg xmlns="http://www.w3.org/2000/svg"
                         class="w-5 h-5 <?php echo e(request()->is('permissions*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 16 16">
@@ -83,13 +101,13 @@
                     </svg>
 
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('permissions*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Perizinan</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('permissions*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Perizinan</span>
                 </a>
 
                 <hr class="my-6 border-gray-200 dark:border-gray-600" />
 
                 <a class="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700 <?php echo e(request()->is('settings*') ? 'bg-gray-100 dark:bg-gray-800 dark:text-gray-200' : ''); ?>"
-                    href="/settings">
+                    href="<?php echo e(route('settings')); ?>">
                     <svg class="w-5 h-5 <?php echo e(request()->is('settings*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>"
                         viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -101,7 +119,7 @@
                     </svg>
 
                     <span
-                        class="mx-4 font-medium <?php echo e(request()->is('settings*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Settings</span>
+                        class="mx-4 font-medium hidden sm:inline <?php echo e(request()->is('settings*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Settings</span>
                 </a>
             </nav>
 
@@ -112,9 +130,9 @@
                     x-transition:leave="transition ease-in duration-150"
                     x-transition:leave-start="opacity-100 translate-y-0"
                     x-transition:leave-end="opacity-0 translate-y-2" x-cloak
-                    class="absolute w-1/2 left-5/6 bottom-20 py-2 px-1 bg-gray-800 rounded-md shadow-2xl">
-                    <a href="#"
-                        class="group flex gap-1 items-center px-4 py-2 text-sm text-gray-300 rounded-md hover:bg-gray-700 hover:text-white">
+                    class="absolute w-max left-5/6 bottom-20 py-2 px-2 bg-gray-800 rounded-md shadow-2xl z-50">
+                    <a href="<?php echo e(route('admin.profile')); ?>"
+                        class="group flex gap-1 items-center px-4 py-2 text-sm text-gray-300 rounded-lg hover:bg-gray-700 hover:text-gray-200 <?php echo e(request()->is('profile/admin*') ? 'bg-gray-100 dark:bg-gray-700 text-gray-200' : ''); ?>">
                         <svg class="flex-shrink-0 w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                             width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" stroke-linecap="square" stroke-linejoin="round"
@@ -122,12 +140,13 @@
                                 d="M10 19H5a1 1 0 0 1-1-1v-1a3 3 0 0 1 3-3h2m10 1a3 3 0 0 1-3 3m3-3a3 3 0 0 0-3-3m3 3h1m-4 3a3 3 0 0 1-3-3m3 3v1m-3-4a3 3 0 0 1 3-3m-3 3h-1m4-3v-1m-2.121 1.879-.707-.707m5.656 5.656-.707-.707m-4.242 0-.707.707m5.656-5.656-.707.707M12 8a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
 
-                        Profile
+                        <span
+                            class="font-medium text-gray-300 hover:text-gray-200 <?php echo e(request()->is('profile/admin*') ? 'text-gray-700 dark:text-gray-200' : ''); ?>">Profil</span>
                     </a>
                     <form action="<?php echo e(route('logout')); ?>" method="POST" class="">
                         <?php echo csrf_field(); ?>
                         <button type="submit"
-                            class="cursor-pointer w-full flex justify-start items-center gap-1 py-2 px-4 rounded-md transition-colors duration-300 text-red-500 hover:bg-red-500 hover:text-white focus:bg-red-50 focus:text-red-600 focus:outline-none focus-visible:outline-none">
+                            class="cursor-pointer w-full flex justify-start items-center gap-1 py-2 px-4 rounded-lg transition-colors duration-300 text-red-500 hover:bg-red-500 hover:text-white focus:bg-red-50 focus:text-red-600 focus:outline-none focus-visible:outline-none">
                             <svg class="flex-shrink-0 w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                 width="24" height="24" fill="none" viewBox="0 0 24 24">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
@@ -150,7 +169,7 @@
                                 d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                         </svg>
                         <span
-                            class="mx-2 font-medium text-gray-800 dark:text-gray-200"><?php echo e(Auth::user()->name); ?></span>
+                            class="mx-2 font-medium text-gray-800 dark:text-gray-200 hidden sm:inline"><?php echo e(Auth::user()->name); ?></span>
                     </div>
                     <svg :class="{ 'rotate-180': open }"
                         class="ml-2 h-5 w-5 transform transition-transform duration-200"

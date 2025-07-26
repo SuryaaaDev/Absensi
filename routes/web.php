@@ -39,16 +39,19 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::put('/update/user/{id}', [UserController::class, 'updateUser'])->name('update.user');
     Route::delete('/delete/user/{id}', [UserController::class, 'destroy'])->name('delete.user');
     Route::get('/students/search', [UserController::class, 'search'])->name('students.search');
+    Route::get('/student/detail/{id}-{name}', [UserController::class, 'showStudent'])->name('student.detail');
 
     Route::get('/classes', [StudentClassController::class, 'classes'])->name('classes');
     Route::post('/add/class', [StudentClassController::class, 'addClass'])->name('add.class');
     Route::put('/edit/class/{id}', [StudentClassController::class, 'editClass'])->name('edit.class');
     Route::delete('/delete/class/{id}', [StudentClassController::class, 'destroy'])->name('delete.class');
+    Route::get('/classes/{id}-{slug}', [StudentClassController::class, 'show'])->name('show.class');
 
     Route::get('/statuses', [StatusController::class, 'statuses'])->name('statuses');
     Route::post('/add/status', [StatusController::class, 'addStatus'])->name('add.status');
     Route::put('/edit/status/{id}', [StatusController::class, 'editStatus'])->name('edit.status');
     Route::delete('/delete/status/{id}', [StatusController::class, 'destroy'])->name('delete.status');
+    Route::get('/status/{name}', [StatusController::class, 'show'])->name('show.status');
 
     Route::get('/attendances', [AttendanceController::class, 'attendances'])->name('attendances');
     Route::get('/attendances/table', [AttendanceController::class, 'attendanceTable'])->name('attendances.table');
@@ -65,6 +68,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/time', [SettingController::class, 'time'])->name('time');
 
     Route::get('/profile/admin', [AdminController::class, 'profileAdmin'])->name('admin.profile');
+    Route::put('/profile/update/{id}', [AdminController::class, 'updateProfile'])->name('update.profileAdmin');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

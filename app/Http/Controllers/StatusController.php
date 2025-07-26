@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Attendance;
 use App\Models\Status;
+use App\Models\Student;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -59,5 +61,20 @@ class StatusController extends Controller
         Alert::success('Success', 'Status berhasil dihapus!');
 
         return back();
+    }
+
+    public function show($name)
+    {
+        $status = Status::where('status_name', 'like', $name)->firstOrFail();
+
+        $studentIds = Attendance::where('status_id', $status->id)
+            ->pluck('student_id')
+            ->unique();
+
+        $students = Student::whereIn('id', $studentIds)
+            ->with('class')
+            ->get();
+
+        return view('admin.show-status', compact('students', 'status'));
     }
 }

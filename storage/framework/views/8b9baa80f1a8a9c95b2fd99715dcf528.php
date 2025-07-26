@@ -4,12 +4,12 @@
     <div class="relative mx-auto max-w-full px-6 lg:max-w-5xl xl:max-w-7xl 2xl:max-w-[96rem]">
         <nav aria-label="main navigation" class="flex h-[5.5rem] items-stretch justify-between font-medium text-slate-700"
             role="navigation">
-            <div class="flex items-center gap-1 text-sm md:text-lg whitespace-nowrap focus:outline-none lg:flex-1">
-                <img src="<?php echo e(asset('storage/image/logo-smk2klt.png')); ?>" alt="" class="w-12 md:w-16">
-                SMKN 2 KLATEN | RFID
+            <div class="flex items-center gap-1 text-md md:text-lg whitespace-nowrap focus:outline-none lg:flex-1">
+                <a href="#" class="flex items-center gap-1">
+                    <img src="<?php echo e(asset('storage/image/logo-smk2klt.png')); ?>" alt="" class="w-12 md:w-16">
+                    SMKN 2 KLATEN | RFID
+                </a>
             </div>
-
-            
 
             <ul role="menubar" aria-label="Select page"
                 class="invisible absolute top-0 left-0 z-[-1] ml-auto h-screen w-full justify-center overflow-hidden overflow-y-auto overscroll-contain bg-white/90 px-8 pb-12 pt-28 font-medium opacity-0 transition-[opacity,visibility] duration-300 lg:visible lg:relative lg:top-0 lg:z-0 lg:flex lg:h-full lg:w-auto lg:items-stretch lg:overflow-visible lg:bg-white/0 lg:px-0 lg:py-0 lg:pt-0 lg:opacity-100">
@@ -34,7 +34,7 @@
                         </a>
                     <?php else: ?>
                         <a href="<?php echo e(route('login')); ?>"
-                            class="inline-flex items-center justify-center h-8 px-3 text-xs sm:h-10 sm:px-5 sm:text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap bg-blue-600 hover:bg-blue-500 hover:shadow-sm hover:shadow-blue-200 focus:bg-blue-500 focus:shadow-sm focus:shadow-blue-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-300 disabled:shadow-none">
+                            class="inline-flex items-center justify-center h-8 px-4 text-xs sm:h-10 sm:px-5 sm:text-sm font-medium tracking-wide text-white transition duration-300 rounded whitespace-nowrap bg-blue-600 hover:bg-blue-500 hover:shadow-sm hover:shadow-blue-200 focus:bg-blue-500 focus:shadow-sm focus:shadow-blue-200 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-blue-300 disabled:bg-blue-300 disabled:shadow-none">
                             Log in
                         </a>
                     <?php endif; ?>

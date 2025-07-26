@@ -3,17 +3,17 @@
         <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
         <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->student->absen }}</td>
         <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->student->name }}</td>
-        <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->student->class->class_name }}</td>
+        <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->student->class->class_name ?? '-' }}</td>
         <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->attendance_date }}</td>
         <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->time_in ?? '-' }}</td>
         <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->time_out ?? '-' }}</td>
         <td class="px-3 py-2 whitespace-nowrap rounded-lg">
             <span
-                class="inline-flex items-center justify-center rounded-full px-2.5 py-0.5
-                                    @if ($attendance->status?->id == 1) bg-red-100 text-red-700
-                                    @elseif($attendance->status?->id == 2) bg-emerald-100 text-emerald-700
-                                    @elseif($attendance->status?->id == 3) bg-blue-100 text-blue-700
-                                    @else bg-amber-100 text-amber-700 @endif
+                class="inline-flex items-center justify-center rounded-full px-3 py-0.5 font-semibold
+                                    @if ($attendance->status?->id == 1) bg-red-100 text-red-600
+                                    @elseif($attendance->status?->id == 2) bg-emerald-100 text-emerald-600
+                                    @elseif($attendance->status?->id == 3) bg-blue-100 text-blue-600
+                                    @else bg-amber-100 text-amber-600 @endif
                                     ">{{ $attendance->status?->status_name }}</span>
         </td>
         <td class="px-3 py-2 whitespace-nowrap">
@@ -30,60 +30,70 @@
                         </g>
                     </svg>
                 </button>
-                <button type="button" popovertarget="delete-attendance-{{ $attendance->id }}"
+                <a href="{{ route('student.detail', [
+                    'name' => Str::slug($attendance->student->name),
+                    'id' => $attendance->student->id,
+                ]) }}"
                     class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:relative"
                     aria-label="View">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                         <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                            stroke-width="1.5">
+                            stroke-width="2">
                             <path d="M3 13c3.6-8 14.4-8 18 0" />
                             <path d="M12 17a3 3 0 1 1 0-6a3 3 0 0 1 0 6Z" />
                         </g>
                     </svg>
-                </button>
+                </a>
             </span>
 
-            <section popover id="edit-attendance-{{ $attendance->id }}"
-                class="w-3/4 md:max-w-4xl md:w-1/4 sm:w-1/2 p-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10">
-                <button type="button" popovertarget="edit-attendance-{{ $attendance->id }}" popovertargetaction="hide"
-                    class="cursor-pointer absolute right-6 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                    <svg class="w-6 h-6 text-gray-800 dark:text-white hover:text-gray-500" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
-                        viewBox="0 0 24 24">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M6 18 17.94 6M18 18 6.06 6" />
-                    </svg>
-                </button>
-
-                <h2 class="text-lg font-semibold text-gray-700 capitalize dark:text-white">Edit
-                    Status Siswa
-                </h2>
-                <form action="{{ route('attendances.updateStatus', $attendance->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-                        <div>
-                            <label class="text-gray-700 dark:text-gray-200" for="attendance_name">Nama
-                                Status</label>
-                            <select id="status"
-                                class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
-                                name="status" required>
-                                @foreach ($statuses as $status)
-                                    <option value="{{ $status->id }}"
-                                        {{ optional($attendance->status)->id == $status->id ? 'selected' : '' }}>
-                                        {{ $status->status_name }}
-                                    </option>
-                                @endforeach
-                            </select>
+            <section popover id="edit-attendance-{{ $attendance->id }}">
+                <div
+                    class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
+                    <div class="w-3/4 md:max-w-4xl md:w-1/4 sm:w-1/2 p-6 m-auto bg-white rounded-md shadow-md z-10">
+                        <div class="flex w-full justify-end">
+                            <button type="button" popovertarget="edit-attendance-{{ $attendance->id }}"
+                                popovertargetaction="hide"
+                                class="cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
+                                <svg class="w-6 h-6 text-gray-800 hover:text-gray-500" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                </svg>
+                            </button>
                         </div>
-                    </div>
 
-                    <div class="flex justify-end mt-6 gap-3">
-                        <button
-                            class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                            type="submit">Save</button>
+                        <h2 class="text-lg font-semibold text-gray-700 capitalize">Edit
+                            Status Siswa
+                        </h2>
+                        <form action="{{ route('attendances.updateStatus', $attendance->id) }}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
+                                <div>
+                                    <label class="text-gray-700" for="attendance_name">Nama
+                                        Status</label>
+                                    <select id="status"
+                                        class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
+                                        name="status" required>
+                                        @foreach ($statuses as $status)
+                                            <option value="{{ $status->id }}"
+                                                {{ optional($attendance->status)->id == $status->id ? 'selected' : '' }}>
+                                                {{ $status->status_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-end mt-6 gap-3">
+                                <button
+                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-black rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
+                                    type="submit">Simpan</button>
+                            </div>
+                        </form>
                     </div>
-                </form>
+                </div>
             </section>
         </td>
     </tr>
