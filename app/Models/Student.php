@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Student extends Authenticatable
@@ -14,7 +15,7 @@ class Student extends Authenticatable
     protected static function booted()
     {
         static::addGlobalScope('siswa', function ($query) {
-            $query->where('is_admin', false);
+            $query->where('role', 'student');
         });
     }
 
@@ -33,5 +34,10 @@ class Student extends Authenticatable
     public function permission() :HasMany
     {
         return $this->hasMany(Permission::class);
+    }   
+
+    public function division() :HasOne
+    {
+        return $this->hasOne(Division::class);
     }
 }

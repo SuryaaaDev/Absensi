@@ -18,23 +18,41 @@
         </div>
 
         <h1 class="text-2xl font-bold mb-4 text-center">Detail Siswa</h1>
-        <div class="bg-white rounded-2xl shadow-md p-6 mb-6 flex flex-col sm:flex-row items-center gap-6">
-            <div class="shrink-0">
-                <img src="{{ $profile }}" alt="Foto Profil {{ $student->name }}"
-                    class="w-28 h-28 rounded-full object-cover shadow-sm">
+        <div
+            class="bg-white rounded-2xl shadow-lg p-6 flex flex-col md:flex-row items-center md:items-start gap-6 transition-all duration-300 hover:shadow-xl">
+
+            <div class="flex justify-center w-full md:w-1/3 mt-0 md:mt-4">
+                <img src="{{ $student['profile'] ? asset('storage/' . $student['profile']) : $profile }}"
+                    alt="Foto Profil {{ $student['name'] }}"
+                    class="w-32 h-32 md:w-40 md:h-40 rounded-full object-cover shadow-md ring-4 ring-slate-100 transition-transform duration-300 hover:scale-105" />
             </div>
 
-            <div class="text-gray-700 space-y-1">
-                <h2 class="text-xl font-semibold text-gray-900">{{ $student->name }}</h2>
-                <p><span class="font-medium">No Absen:</span> {{ $student->absen }}</p>
-                <p><span class="font-medium">Kelas:</span> {{ $student->class->class_name ?? '-' }}</p>
-                <p><span class="font-medium">Email:</span> {{ $student->email }}</p>
-                <p><span class="font-medium">No Telepon:</span> {{ $student->telepon }}</p>
-                <div class="relative group flex">
-                    <p class="font-medium text-gray-700">Nomor Kartu:</p>
-                    <div
-                        class="text-gray-900 font-mono px-2 py-0.5 rounded w-fit transition-all duration-300 blur-sm group-hover:blur-none">
-                        {{ $student->card_number ?? 'Belum terdaftar' }}
+            <div class="flex flex-col md:flex-row justify-between w-full text-gray-700 gap-6">
+                <div class="space-y-2 w-full md:w-1/2">
+                    <h2 class="text-2xl font-semibold text-gray-900">{{ $student['name'] }}</h2>
+
+                    <div class="relative group flex items-center">
+                        <p class="font-medium text-gray-700">Nomor Kartu:</p>
+                        <div
+                            class="font-mono text-gray-900 ml-2 px-2 py-0.5 rounded-md bg-gray-50 blur-sm group-hover:blur-none transition-all duration-300 cursor-pointer">
+                            {{ $student['card_number'] ?? 'Belum terdaftar' }}
+                        </div>
+                    </div>
+
+                    <p><span class="font-medium">NISN:</span> {{ $student['NISN'] }}</p>
+                    <p><span class="font-medium">No Absen:</span> {{ $student['absen'] }}</p>
+                    <p><span class="font-medium">Kelas:</span> {{ $student['class']['class_name'] ?? '-' }}</p>
+                    <p><span class="font-medium">Email:</span> {{ $student['email'] }}</p>
+                </div>
+
+                <div class="space-y-2 w-full md:w-1/2 md:border-l md:pl-6 border-gray-100 -mt-4 md:mt-0">
+                    <p><span class="font-medium">No Telepon:</span> {{ $student['telephone'] }}</p>
+                    <p><span class="font-medium">No Orang Tua:</span> {{ $student['parents_phone'] }}</p>
+                    <div>
+                        <p class="font-medium mb-1">Alamat:</p>
+                        <p class="text-gray-800 leading-relaxed bg-gray-50 rounded-lg p-2 border border-gray-100 shadow-sm">
+                            {{ $student['address'] }}
+                        </p>
                     </div>
                 </div>
             </div>
@@ -72,7 +90,7 @@
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
-                    @if ($attendances->isEmpty())
+                    @if (empty($attendances))
                         <tr>
                             <td colspan="5" class="py-12 whitespace-nowrap">
                                 <div class="flex flex-col items-center justify-center text-center text-gray-600">
@@ -90,17 +108,17 @@
                     @foreach ($attendances as $item)
                         <tr class="*:text-gray-900 *:first:font-medium">
                             <td class="px-4 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $item->attendance_date }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $item->time_in ?? '-' }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $item->time_out ?? '-' }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $item['attendance_date'] }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $item['time_in'] ?? '-' }}</td>
+                            <td class="px-4 py-2 whitespace-nowrap">{{ $item['time_out'] ?? '-' }}</td>
                             <td class="px-4 py-2 whitespace-nowrap">
                                 <span
                                     class="inline-block rounded-full px-3 py-1 text-sm font-semibold
-                                    @if ($item->status?->id == 1) bg-red-100 text-red-600
-                                    @elseif($item->status?->id == 2) bg-emerald-100 text-emerald-600
-                                    @elseif($item->status?->id == 3) bg-blue-100 text-blue-600
+                                    @if ($item['status']['id'] == 1) bg-red-100 text-red-600
+                                    @elseif($item['status']['id'] == 2) bg-emerald-100 text-emerald-600
+                                    @elseif($item['status']['id'] == 3) bg-blue-100 text-blue-600
                                     @else bg-amber-100 text-amber-600 @endif">
-                                    {{ $item->status?->status_name ?? '-' }}
+                                    {{ $item['status']['status_name'] ?? '-' }}
                                 </span>
                             </td>
                         </tr>

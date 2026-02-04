@@ -2,53 +2,68 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Attendance;
-use App\Models\Status;
-use App\Models\Student;
-use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class StatusController extends Controller
 {
-    public function statuses()
+    private $apiBase = 'http://localhost:8001/api/statuses';
+
+    public function index()
     {
-        $statuses = Status::all();
+        $response = Http::get($this->apiBase . '/');
+        $statuses = $response->json()['data'] ?? [];
+
         $title = 'Hapus Data';
         $text = "Apakah anda yakin untuk menghapus data ini?";
         confirmDelete($title, $text);
 
-        return view('admin.statuses', compact('statuses'));
+        return view('statuses.index', compact('statuses'));
     }
 
-    public function addStatus(Request $request)
-    {
-        $validated = $request->validate([
-            'status_name' => 'required|string',
-        ]);
-
-        $name = Str::ucfirst($request->status_name);
-
-        $status = new Status();
-        $status->status_name = $name;
-        $status->save();
-        Alert::success('Success', 'Status berhasil ditambahkan!');
-
-        return back();
-    }
-
-    public function editStatus(Request $request, $id)
+    public function store(Request $request)
     {
         $validated = $request->validate([
             'status_name' => 'required|string|max:20',
         ]);
 
-        $name = Str::ucfirst($request->status_name);
+        $response = Http::post($this->apiBase . '/', $validated);
 
-        $class = Status::findOrFail($id);
-        $class->update([
-            'status_name' => $name,
+        if ($response->failed()) {
+            Alert::error('Error', 'Gagal menambahkan status!');
+            return back()->withInput();
+        }
+        Alert::success('Success', 'Status berhasil ditambahkan!');
+
+        return back();
+    }
+
+    public function show($name)
+    {
+        $response = Http::get($this->apiBase . '/' . $name);
+        if ($response->failed()) {
+            abort(404);
+        }
+        $data = $response->json()['data'] ?? [];
+        $status = $data['status'] ?? null;
+        $students = $data['students'] ?? [];
+
+        return view('statuses.show', compact('students', 'status'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $validated = $request->validate([
+            'status_name' => 'required|string|max:20',
         ]);
+
+        $response = Http::put($this->apiBase . '/' . $id, $validated);
+        
+        if ($response->failed()) {
+            Alert::error('Error', 'Gagal memperbarui status!');
+            return back()->withInput();
+        }
         Alert::success('Success', 'Status berhasil diperbarui!');
 
         return back();
@@ -56,25 +71,13 @@ class StatusController extends Controller
 
     public function destroy($id)
     {
-        $user = Status::findOrFail($id);
-        $user->delete();
+        $response = Http::delete($this->apiBase . '/' . $id);
+        if ($response->failed()) {
+            Alert::error('Error', 'Gagal menghapus status!');
+            return back();
+        }
         Alert::success('Success', 'Status berhasil dihapus!');
 
         return back();
-    }
-
-    public function show($name)
-    {
-        $status = Status::where('status_name', 'like', $name)->firstOrFail();
-
-        $studentIds = Attendance::where('status_id', $status->id)
-            ->pluck('student_id')
-            ->unique();
-
-        $students = Student::whereIn('id', $studentIds)
-            ->with('class')
-            ->get();
-
-        return view('admin.show-status', compact('students', 'status'));
     }
 }

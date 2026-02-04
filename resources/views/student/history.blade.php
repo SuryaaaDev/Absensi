@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-    <div class="pt-24 px-10 md:px-0">
+    <div class="pt-24 px-10 md:px-0 min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50">
         <h1 class="text-center text-2xl font-bold py-4">History</h1>
         <section x-data="{ tab: 1 }" class="max-w-full">
-            <ul class="flex items-center m-auto md:mx-52" role="tablist">
+            <ul class="flex items-center justify-center w-full m-auto" role="tablist">
                 <li>
                     <button @click="tab = 1"
                         :class="tab === 1 ? 'border-emerald-500 text-emerald-500' : 'border-transparent text-slate-700'"
@@ -32,8 +32,8 @@
                 </li>
             </ul>
 
-            <div class="px-6 py-4" x-show="tab === 1">
-                <div class="overflow-x-auto md:w-1/2 md:p-0 m-auto rounded border border-gray-300 shadow-sm">
+            <div class="py-4" x-show="tab === 1">
+                <div class="overflow-x-auto md:w-1/2 md:p-0 m-auto rounded border border-gray-300 shadow-sm bg-white">
                     <table class="min-w-full divide-y-2 divide-gray-200">
                         <thead class="ltr:text-left rtl:text-right">
                             <tr class="*:font-medium *:text-gray-900">
@@ -46,7 +46,7 @@
                         </thead>
 
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($attendances as $attendance)
+                            @forelse ($attendances as $attendance)
                                 <tr class="*:text-gray-900 *:first:font-medium">
                                     <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
                                     <td class="px-3 py-2 whitespace-nowrap">{{ $attendance->attendance_date }}</td>
@@ -62,26 +62,32 @@
                                             ">{{ $attendance->status->status_name }}</span>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-3 py-2 text-center text-gray-500">
+                                        Tidak ada data absensi.
+                                    </td>
+                                </tr>
+                            @endforelse
                     </table>
                 </div>
             </div>
-            <div class="px-6 py-4" x-show="tab === 2" x-cloak>
 
-                <div class="overflow-x-auto md:w-1/2 md:p-0 m-auto rounded border border-gray-300 shadow-sm">
+            <div class="py-4" x-show="tab === 2" x-cloak>
+                <div class="overflow-x-auto md:w-1/2 md:p-0 m-auto rounded border border-gray-300 shadow-sm bg-white">
                     <table class="min-w-full divide-y-2 divide-gray-200">
                         <thead class="ltr:text-left rtl:text-right">
                             <tr class="*:font-medium *:text-gray-900">
                                 <th class="px-3 py-2 whitespace-nowrap">#</th>
                                 <th class="px-3 py-2 whitespace-nowrap">Tanggal</th>
                                 <th class="px-3 py-2 whitespace-nowrap">Jenis Izin</th>
-                                <th class="px-3 py-2 whitespace-nowrap">Image</th>
+                                <th class="px-3 py-2 whitespace-nowrap">Gambar</th>
                                 <th class="px-3 py-2 whitespace-nowrap">Status</th>
                             </tr>
                         </thead>
 
                         <tbody class="divide-y divide-gray-200">
-                            @foreach ($permissions as $permission)
+                            @forelse ($permissions as $permission)
                                 <tr class="*:text-gray-900 *:first:font-medium">
                                     <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
                                     <td class="px-3 py-2 whitespace-nowrap">{{ $permission->created_at }}</td>
@@ -144,11 +150,18 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-3 py-2 text-center text-gray-500">
+                                        Tidak ada data perizinan.
+                                    </td>
+                                </tr>
+                            @endforelse
                     </table>
                 </div>
 
-                <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
+                <div id="imageModal"
+                    class="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 hidden">
                     <div class="relative">
                         <button onclick="closeImageModal()"
                             class="absolute top-2 right-2 text-black text-4xl font-bold shadow-2xl cursor-pointer">&times;</button>

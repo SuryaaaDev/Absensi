@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Status;
 use App\Models\Attendance;
+use App\Models\Mode;
 use App\Models\Permission;
 use App\Models\StudentClass;
 use Illuminate\Support\Facades\Auth;
@@ -12,8 +13,8 @@ class StudentController extends Controller
 {
     public function profile()
     {
-        $user = Auth::guard('student')->user();
-        if (!$user) {
+        $user = Auth::user();
+        if (!$user || $user->role !== 'student') {
             return redirect()->route('login');
         }
 
@@ -22,8 +23,8 @@ class StudentController extends Controller
 
     public function student()
     {
-        $user = Auth::guard('student')->user();
-        if (!$user) {
+        $user = Auth::user();
+        if (!$user || $user->role !== 'student') {
             return redirect()->route('login');
         }
 
@@ -32,14 +33,15 @@ class StudentController extends Controller
             ->get();
 
         $statuses = Status::all();
+        $mode = Mode::first();
 
-        return view('student.index', compact('attendances', 'statuses'));
+        return view('student.index', compact('attendances', 'statuses', 'mode'));
     }
 
     public function history()
     {
-        $user = Auth::guard('student')->user();
-        if (!$user) {
+        $user = Auth::user();
+        if (!$user || $user->role !== 'student') {
             return redirect()->route('login');
         }
 
@@ -57,8 +59,8 @@ class StudentController extends Controller
 
     public function permission()
     {
-        $user = Auth::guard('student')->user();
-        if (!$user) {
+        $user = Auth::user();
+        if (!$user || $user->role !== 'student') {
             return redirect()->route('login');
         }
 
@@ -68,8 +70,8 @@ class StudentController extends Controller
         return view('student.permission', compact('user', 'classes', 'statuses'));
     }
 
-    public function assistance()
+    public function borrowTools()
     {
-        return view('student.assistance');
+        return view('student.borrow');
     }
 }

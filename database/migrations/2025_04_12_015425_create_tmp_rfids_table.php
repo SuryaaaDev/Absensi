@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('tmp_rfids', function (Blueprint $table) {
             $table->id();
             $table->string('nokartu');
+            $table->unsignedBigInteger('device_id');
             $table->timestamps();
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
         });
     }
 

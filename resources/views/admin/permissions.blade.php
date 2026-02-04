@@ -44,13 +44,15 @@
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->absen }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->name }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->class->class_name }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->telepon }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $permission->student->telephone }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">{{ $permission->explanation->status_name ?? '-' }}
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap">
-                                <img src="{{ asset('storage/' . $permission->image) }}" alt="Preview"
-                                    class="w-18 h-18 rounded-md cursor-zoom-in"
-                                    onclick="openImageModal('{{ asset('storage/' . $permission->image) }}')">
+                                <div class="w-20 h-20 overflow-hidden rounded-md">
+                                    <img src="{{ asset('storage/' . $permission->image) }}" alt="Preview"
+                                        class="w-full h-full object-cover cursor-zoom-in"
+                                        onclick="openImageModal('{{ asset('storage/' . $permission->image) }}')">
+                                </div>
                             </td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 @if ($permission->status === 'pending')
@@ -75,92 +77,102 @@
                                         </button>
                                     </span>
 
-                                    <section popover id="rejected-{{ $permission->id }}"
-                                        class="w-full max-w-sm px-2 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 overflow-hidden">
+                                    <section popover id="rejected-{{ $permission->id }}">
+                                        <div
+                                            class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
+                                            <div
+                                                class="w-full max-w-sm px-2 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md z-10 overflow-hidden">
+                                                <div class="flex justify-center mb-4">
+                                                    <svg class="text-red-700 w-20 h-20 sm:w-32 sm:h-32"
+                                                        viewBox="-2 -2 24 24" xmlns="http://www.w3.org/2000/svg">
+                                                        <path
+                                                            d="M10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm0-13a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1zm0 10a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
+                                                            fill="currentColor" />
+                                                    </svg>
+                                                </div>
 
-                                        <div class="flex justify-center mb-4">
-                                            <svg class="text-red-700 w-20 h-20 sm:w-32 sm:h-32" viewBox="-2 -2 24 24"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path
-                                                    d="M10 20C4.477 20 0 15.523 0 10S4.477 0 10 0s10 4.477 10 10s-4.477 10-10 10zm0-2a8 8 0 1 0 0-16a8 8 0 0 0 0 16zm0-13a1 1 0 0 1 1 1v5a1 1 0 0 1-2 0V6a1 1 0 0 1 1-1zm0 10a1 1 0 1 1 0-2a1 1 0 0 1 0 2z"
-                                                    fill="currentColor" />
-                                            </svg>
-                                        </div>
+                                                <div class="text-center">
+                                                    <p
+                                                        class="text-md sm:text-base text-gray-700 break-words whitespace-normal leading-relaxed">
+                                                        Apakah anda yakin menolak permohonan izin ini?
+                                                    </p>
+                                                </div>
 
-                                        <div class="text-center">
-                                            <p
-                                                class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">
-                                                Apakah anda yakin menolak permohonan izin ini?
-                                            </p>
-                                        </div>
-
-                                        <form action="{{ route('rejected', $permission->id) }}" method="POST">
-                                            @csrf
-                                            <div class="flex justify-end mt-6 gap-2">
-                                                <button popovertarget="rejected-{{ $permission->id }}"
-                                                    popovertargetaction="hide" type="button"
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-60">
-                                                    Batal
-                                                </button>
-                                                <button type="submit"
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-red-700 rounded-md hover:bg-red-600 focus:outline-none focus:bg-red-60">
-                                                    Tolak
-                                                </button>
+                                                <form action="{{ route('rejected', $permission->id) }}" method="POST">
+                                                    @csrf
+                                                    <div class="flex justify-end mt-6 gap-2">
+                                                        <button popovertarget="rejected-{{ $permission->id }}"
+                                                            popovertargetaction="hide" type="button"
+                                                            class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none focus:bg-gray-500">
+                                                            Batal
+                                                        </button>
+                                                        <button type="submit"
+                                                            class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-500">
+                                                            Tolak
+                                                        </button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
                                     </section>
 
+                                    <section popover id="accepted-{{ $permission->id }}">
+                                        <div
+                                            class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
+                                            <div
+                                                class="w-full max-w-sm px-4 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md z-10 overflow-hidden">
+                                                <div class="flex justify-center">
+                                                    <svg class="text-green-700 w-32 h-32" xmlns="http://www.w3.org/2000/svg"
+                                                        fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                                        stroke="currentColor" class="size-6">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
+                                                    </svg>
 
-                                    <section popover id="accepted-{{ $permission->id }}"
-                                        class="w-full max-w-sm px-2 sm:px-6 py-4 sm:py-6 m-auto bg-white rounded-md shadow-md dark:bg-gray-800 z-10 overflow-hidden">
-                                        <div class="flex justify-center">
-                                            <svg class="text-green-700 w-32 h-32" xmlns="http://www.w3.org/2000/svg"
-                                                fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
-                                                class="size-6">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 5.25h.008v.008H12v-.008Z" />
-                                            </svg>
+                                                </div>
+                                                <p
+                                                    class="text-md sm:text-base text-gray-700 break-words whitespace-normal leading-relaxed">
+                                                    Apakah anda yakin menyetujui permohonan
+                                                    izin
+                                                    ini?</p>
+                                                <form action="{{ route('accepted', $permission->id) }}" method="POST">
+                                                    @csrf
+                                                    <label class="relative flex items-center">
+                                                        <input
+                                                            class="w-4 h-4 transition-colors bg-white border-2 rounded appearance-none cursor-pointer focus-visible:outline-none peer border-slate-500 checked:border-emerald-500 checked:bg-emerald-500 checked:hover:border-emerald-600 checked:hover:bg-emerald-600 focus:outline-none checked:focus:border-emerald-700 checked:focus:bg-emerald-700 checked:ring-2 checked:ring-emerald-600 hover:ring-2 hover:ring-emerald-600 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-50"
+                                                            type="checkbox" required />
+                                                        <span
+                                                            class="pl-2 cursor-pointer text-gray-700 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 break-words whitespace-normal leading-relaxed">
+                                                            Surat sudah sesuai dengan ketentuan
+                                                        </span>
+                                                        <svg class="absolute left-0 w-4 h-4 transition-all duration-300 -rotate-90 opacity-0 pointer-events-none top-1 fill-white stroke-white peer-checked:rotate-0 peer-checked:opacity-100 peer-disabled:cursor-not-allowed"
+                                                            viewBox="0 0 16 16" fill="none"
+                                                            xmlns="http://www.w3.org/2000/svg" aria-hidden="true"
+                                                            aria-labelledby="title-1 description-1"
+                                                            role="graphics-symbol">
+                                                            <title id="title-1">Check mark icon</title>
+                                                            <desc id="description-1">
+                                                                Check mark icon to indicate whether the radio input is
+                                                                checked
+                                                                or not.
+                                                            </desc>
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M12.8116 5.17568C12.9322 5.2882 13 5.44079 13 5.5999C13 5.759 12.9322 5.91159 12.8116 6.02412L7.66416 10.8243C7.5435 10.9368 7.37987 11 7.20925 11C7.03864 11 6.87501 10.9368 6.75435 10.8243L4.18062 8.42422C4.06341 8.31105 3.99856 8.15948 4.00002 8.00216C4.00149 7.84483 4.06916 7.69434 4.18846 7.58309C4.30775 7.47184 4.46913 7.40874 4.63784 7.40737C4.80655 7.406 4.96908 7.46648 5.09043 7.57578L7.20925 9.55167L11.9018 5.17568C12.0225 5.06319 12.1861 5 12.3567 5C12.5273 5 12.691 5.06319 12.8116 5.17568Z" />
+                                                        </svg>
+                                                    </label>
 
-                                        </div>
-                                        <p
-                                            class="text-md sm:text-base text-gray-700 dark:text-gray-200 break-words whitespace-normal leading-relaxed">
-                                            Apakah anda yakin menyetujui permohonan
-                                            izin
-                                            ini?</p>
-                                        <form action="{{ route('accepted', $permission->id) }}" method="POST">
-                                            @csrf
-                                            <label class="relative flex items-center">
-                                                <input
-                                                    class="w-4 h-4 transition-colors bg-white border-2 rounded appearance-none cursor-pointer focus-visible:outline-none peer border-slate-500 checked:border-emerald-500 checked:bg-emerald-500 checked:hover:border-emerald-600 checked:hover:bg-emerald-600 focus:outline-none checked:focus:border-emerald-700 checked:focus:bg-emerald-700 checked:ring-2 checked:ring-emerald-600 hover:ring-2 hover:ring-emerald-600 disabled:cursor-not-allowed disabled:border-slate-100 disabled:bg-slate-50"
-                                                    type="checkbox" required />
-                                                <span
-                                                    class="pl-2 cursor-pointer text-gray-700 dark:text-gray-200 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 break-words whitespace-normal leading-relaxed">
-                                                    Surat sudah sesuai dengan ketentuan
-                                                </span>
-                                                <svg class="absolute left-0 w-4 h-4 transition-all duration-300 -rotate-90 opacity-0 pointer-events-none top-1 fill-white stroke-white peer-checked:rotate-0 peer-checked:opacity-100 peer-disabled:cursor-not-allowed"
-                                                    viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"
-                                                    aria-hidden="true" aria-labelledby="title-1 description-1"
-                                                    role="graphics-symbol">
-                                                    <title id="title-1">Check mark icon</title>
-                                                    <desc id="description-1">
-                                                        Check mark icon to indicate whether the radio input is checked
-                                                        or not.
-                                                    </desc>
-                                                    <path fill-rule="evenodd" clip-rule="evenodd"
-                                                        d="M12.8116 5.17568C12.9322 5.2882 13 5.44079 13 5.5999C13 5.759 12.9322 5.91159 12.8116 6.02412L7.66416 10.8243C7.5435 10.9368 7.37987 11 7.20925 11C7.03864 11 6.87501 10.9368 6.75435 10.8243L4.18062 8.42422C4.06341 8.31105 3.99856 8.15948 4.00002 8.00216C4.00149 7.84483 4.06916 7.69434 4.18846 7.58309C4.30775 7.47184 4.46913 7.40874 4.63784 7.40737C4.80655 7.406 4.96908 7.46648 5.09043 7.57578L7.20925 9.55167L11.9018 5.17568C12.0225 5.06319 12.1861 5 12.3567 5C12.5273 5 12.691 5.06319 12.8116 5.17568Z" />
-                                                </svg>
-                                            </label>
-
-                                            <div class="flex justify-end mt-6 gap-2">
-                                                <button popovertarget="accepted-{{ $permission->id }}"
-                                                    popovertargetaction="hide"
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
-                                                    type="button">Batal</button>
-                                                <button
-                                                    class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-green-700 rounded-md hover:bg-green-600 focus:outline-none focus:bg-green-600"
-                                                    type="submit">Setujui</button>
+                                                    <div class="flex justify-end mt-6 gap-2">
+                                                        <button popovertarget="accepted-{{ $permission->id }}"
+                                                            popovertargetaction="hide"
+                                                            class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-gray-600 rounded-md hover:bg-gray-500 focus:outline-none focus:bg-gray-500"
+                                                            type="button">Batal</button>
+                                                        <button
+                                                            class="px-8 py-2.5 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-green-600 rounded-md hover:bg-green-500 focus:outline-none focus:bg-green-500"
+                                                            type="submit">Setujui</button>
+                                                    </div>
+                                                </form>
                                             </div>
-                                        </form>
+                                        </div>
                                     </section>
                                 @elseif ($permission->status === 'ditolak')
                                     <span

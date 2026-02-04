@@ -2,7 +2,7 @@
     <?php echo $__env->make('home.navbar', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <div class="relative w-full glide-02">
+    <section class="relative w-full glide-02">
         <div class="overflow-hidden" data-glide-el="track">
             <ul
                 class="relative w-full md:h-screen overflow-hidden p-0 whitespace-no-wrap flex flex-no-wrap [backface-visibility: hidden] [transform-style: preserve-3d] [touch-action: pan-Y] [will-change: transform]">
@@ -21,236 +21,465 @@
             <button class="p-4 group" data-glide-dir="=1" aria-label="goto slide 2"><span
                     class="block w-2 h-2 transition-colors cursor-pointer duration-300 rounded-full ring-1 ring-slate-700 bg-white/20 focus:outline-none"></span></button>
         </div>
-    </div>
+    </section>
 
-    <section class="bg-white dark:bg-gray-900 py-30" id="about">
-        <div class="container flex flex-col items-center px-4 py-12 mx-auto text-center">
-            <h2 class="text-2xl font-bold tracking-tight text-gray-800 xl:text-3xl dark:text-white">
-                Apa Itu Absensi RFID?
-            </h2>
+    <section id="about" class="relative py-20 bg-gradient-to-br from-white via-green-100/60 to-white overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-10 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/dots.png')] bg-repeat">
+        </div>
 
-            <p class="block max-w-4xl mt-4 text-gray-500 dark:text-gray-300">
-                RFID (Radio Frequency Identification) adalah teknologi identifikasi otomatis yang menggunakan gelombang
-                radio. Di sistem ini, setiap siswa memiliki kartu identitas berteknologi RFID yang akan dibaca oleh alat
-                pemindai setiap kali mereka datang atau pulang dari sekolah. Dengan ini, absensi tidak lagi dilakukan secara
-                manual. Data kehadiran siswa langsung terekam secara real-time ke dalam sistem.
-            </p>
+        <div class="relative max-w-6xl mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-            <div class="mt-6">
-                <a href="#cara-absen"
-                    class="inline-flex items-center justify-center w-full px-4 py-2.5 overflow-hidden text-sm text-white transition-colors duration-300 bg-gray-900 rounded-lg shadow sm:w-auto sm:mx-2 hover:bg-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700 focus:ring focus:ring-gray-300 focus:ring-opacity-80">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2 fill-current" viewBox="0 0 26 26">
-                        <path fill="currentColor"
-                            d="M13 0C5.925 0 0 5.08 0 11.5c0 3.03 1.359 5.748 3.5 7.781a6.733 6.733 0 0 1-1.094 1.875A16.48 16.48 0 0 1 .375 23.22A1 1 0 0 0 1 25c2.215 0 3.808-.025 5.25-.406c1.29-.342 2.399-1.058 3.531-2.063c1.03.247 2.093.469 3.219.469c7.075 0 13-5.08 13-11.5S20.075 0 13 0zm0 2c6.125 0 11 4.32 11 9.5S19.125 21 13 21c-1.089 0-2.22-.188-3.25-.469a1 1 0 0 0-.938.25c-1.125 1.079-1.954 1.582-3.062 1.875c-.51.135-1.494.103-2.188.157c.14-.158.271-.242.407-.407c.786-.96 1.503-1.975 1.719-3.125a1 1 0 0 0-.344-.937C3.249 16.614 2 14.189 2 11.5C2 6.32 6.875 2 13 2zm-1.906 3.906a1 1 0 0 0-.469.25l-1.5 1.407l1.344 1.468l1.187-1.125h2.406L15 8.97v1.469l-2.563 1.718A1 1 0 0 0 12 13v2h2v-1.438l2.563-1.718A1 1 0 0 0 17 11V8.594a1 1 0 0 0-.25-.656l-1.5-1.688a1 1 0 0 0-.75-.344h-3.188a1 1 0 0 0-.218 0zM12 16v2h2v-2h-2z" />
-                    </svg>
-                    <span class="mx-2">
+            <div class="flex justify-center lg:justify-end order-1 lg:order-2">
+                <img src="https://cdn-icons-png.flaticon.com/512/3050/3050525.png" alt="RFID Illustration"
+                    class="w-64 lg:w-80 p-4" />
+            </div>
+
+            <div class="space-y-6 text-center lg:text-left order-2 lg:order-1">
+                <h2 class="text-4xl font-extrabold text-gray-800 drop-shadow-sm">
+                    Apa Itu Absensi RFID?
+                </h2>
+                <p class="text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0">
+                    <span class="font-semibold text-green-600">RFID (Radio Frequency Identification)</span>
+                    adalah teknologi identifikasi otomatis yang menggunakan gelombang radio.
+                    Setiap siswa memiliki kartu identitas RFID yang akan dibaca oleh alat pemindai
+                    setiap kali hadir atau pulang sekolah.
+                    Dengan ini, absensi tercatat <span class="font-medium text-gray-800">otomatis & real-time</span>,
+                    tanpa proses manual.
+                </p>
+
+                <div class="inline-flex flex-row gap-4 justify-center lg:justify-start pt-2">
+                    <a href="#cara-absen"
+                        class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-white bg-green-600 rounded-lg shadow hover:bg-green-500 transition-colors duration-300">
                         Cara Absen
-                    </span>
-                </a>
-
-                <a href="<?php echo e(route('login')); ?>"
-                    class="inline-flex items-center justify-center w-full px-4 py-2.5 mt-4 overflow-hidden text-sm text-white transition-colors duration-300 bg-blue-600 rounded-lg shadow sm:w-auto sm:mx-2 sm:mt-0 hover:bg-blue-500 focus:ring focus:ring-blue-300 focus:ring-opacity-80">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mx-2 fill-current" viewBox="0 0 24 24">
-                        <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="2">
-                            <path stroke-dasharray="46" stroke-dashoffset="46"
-                                d="M8 5V4C8 3.44772 8.44772 3 9 3H18C18.5523 3 19 3.44772 19 4V20C19 20.5523 18.5523 21 18 21H9C8.44771 21 8 20.5523 8 20V19">
-                                <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.5s" values="46;0" />
-                            </path>
-                            <path stroke-dasharray="12" stroke-dashoffset="12" d="M4 12h11" opacity="0">
-                                <set attributeName="opacity" begin="0.6s" to="1" />
-                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.6s" dur="0.2s"
-                                    values="12;0" />
-                            </path>
-                            <path stroke-dasharray="6" stroke-dashoffset="6" d="M15 12l-3.5 -3.5M15 12l-3.5 3.5"
-                                opacity="0">
-                                <set attributeName="opacity" begin="0.8s" to="1" />
-                                <animate fill="freeze" attributeName="stroke-dashoffset" begin="0.8s" dur="0.2s"
-                                    values="6;0" />
-                            </path>
-                        </g>
-                    </svg>
-
-                    <span class="mx-2">
+                    </a>
+                    <a href="<?php echo e(route('login')); ?>"
+                        class="inline-flex items-center justify-center px-6 py-3 text-sm font-medium text-gray-700 bg-white border border-gray-200 rounded-lg hover:border-green-300 hover:text-green-600 transition-colors duration-300 shadow">
                         Login
-                    </span>
-                </a>
+                    </a>
+                </div>
             </div>
         </div>
     </section>
 
-    <div class="w-8/12 m-auto pt-24 pb-10" id="cara-absen">
-        <h1 class="text-2xl font-bold">Cara Absen</h1>
-        <ul aria-label="User feed" role="feed"
-            class="relative flex flex-col gap-12 py-12 pl-6 before:absolute before:top-0 before:left-6 before:h-full before:border before:-translate-x-1/2 before:border-slate-200 before:border-dashed after:absolute after:top-6 after:left-6 after:bottom-6 after:border after:-translate-x-1/2 after:border-slate-200 ">
-            <li role="article" class="relative pl-6 ">
-                <div class="flex flex-col flex-1 gap-2">
-                    <div
-                        class="absolute z-10 inline-flex items-center justify-center w-6 h-6 text-white rounded-full -left-3 ring-2 ring-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black bg-white" viewBox="0 0 16 16">
-                            <path fill="currentColor"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM9.283 4.002V12H7.971V5.338h-.065L6.072 6.656V5.385l1.899-1.383h1.312Z" />
-                        </svg>
-                    </div>
-                    <h4
-                        class="flex flex-col items-start text-base font-medium leading-6 lg:items-center md:flex-row text-slate-700">
-                        <span class="flex-1">Siapkan Kartu RFID Anda</span>
-                    </h4>
-                    <p class="text-sm text-slate-500">Setiap siswa memiliki kartu RFID pribadi.</p>
-                </div>
-            </li>
-            <li role="article" class="relative pl-6 ">
-                <div class="flex flex-col flex-1 gap-2">
-                    <div
-                        class="absolute z-10 inline-flex items-center justify-center w-6 h-6 text-white rounded-full -left-3 ring-2 ring-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black bg-white" viewBox="0 0 16 16">
-                            <path fill="currentColor"
-                                d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM6.646 6.24v.07H5.375v-.064c0-1.213.879-2.402 2.637-2.402c1.582 0 2.613.949 2.613 2.215c0 1.002-.6 1.667-1.287 2.43l-.096.107l-1.974 2.22v.077h3.498V12H5.422v-.832l2.97-3.293c.434-.475.903-1.008.903-1.705c0-.744-.557-1.236-1.313-1.236c-.843 0-1.336.615-1.336 1.306Z" />
-                        </svg>
-                    </div>
-                    <h4
-                        class="flex flex-col items-start text-base font-medium leading-6 lg:items-center md:flex-row text-slate-700">
-                        <span class="flex-1">Cari Alat Pemindai</span>
-                    </h4>
-                    <p class="text-sm text-slate-500">Saat siswa datang dan pulang sekolah, tempelkan kartu RFID ke salah
-                        satu
-                        alat pemindai (reader) yang tersedia di titik tertentu pada area LAB.</p>
-                </div>
-            </li>
-            <li role="article" class="relative pl-6 ">
-                <div class="flex flex-col flex-1 gap-2">
-                    <div
-                        class="absolute z-10 inline-flex items-center justify-center w-6 h-6 text-white rounded-full -left-3 ring-2 ring-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black bg-white" viewBox="0 0 16 16">
-                            <g fill="currentColor">
-                                <path
-                                    d="M7.918 8.414h-.879V7.342h.838c.78 0 1.348-.522 1.342-1.237c0-.709-.563-1.195-1.348-1.195c-.79 0-1.312.498-1.348 1.055H5.275c.036-1.137.95-2.115 2.625-2.121c1.594-.012 2.608.885 2.637 2.062c.023 1.137-.885 1.776-1.482 1.875v.07c.703.07 1.71.64 1.734 1.917c.024 1.459-1.277 2.396-2.93 2.396c-1.705 0-2.707-.967-2.754-2.144H6.33c.059.597.68 1.06 1.541 1.066c.973.006 1.6-.563 1.588-1.354c-.006-.779-.621-1.318-1.541-1.318Z" />
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z" />
-                            </g>
-                        </svg>
-                    </div>
-                    <h4
-                        class="flex flex-col items-start text-base font-medium leading-6 lg:items-center md:flex-row text-slate-700">
-                        <span class="flex-1">Tempelkan Kartu ke Alat Pemindai</span>
-                    </h4>
-                    <p class="text-sm text-slate-500">Letakkan atau tempelkan kartu RFID di dekat alat pemindai. Pastikan
-                        lampu
-                        indikator menyala atau terdengar bunyi "bip" sebagai tanda data berhasil dibaca.</p>
-                </div>
-            </li>
-            <li role="article" class="relative pl-6 ">
-                <div class="flex flex-col flex-1 gap-2">
-                    <div
-                        class="absolute z-10 inline-flex items-center justify-center w-6 h-6 text-white rounded-full -left-3 ring-2 ring-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-black bg-white" viewBox="0 0 16 16">
-                            <g fill="currentColor">
-                                <path
-                                    d="M7.519 5.057c.22-.352.439-.703.657-1.055h1.933v5.332h1.008v1.107H10.11V12H8.85v-1.559H4.978V9.322c.77-1.427 1.656-2.847 2.542-4.265ZM6.225 9.281v.053H8.85V5.063h-.065c-.867 1.33-1.787 2.806-2.56 4.218Z" />
-                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0ZM1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8Z" />
-                            </g>
-                        </svg>
-                    </div>
-                    <h4
-                        class="flex flex-col items-start text-base font-medium leading-6 lg:items-center md:flex-row text-slate-700">
-                        <span class="flex-1">Selesai!</span>
-                    </h4>
-                    <p class="text-sm text-slate-500">Siswa sudah tercatat hadir atau pulang.</p>
-                </div>
-            </li>
-            <li role="article" class="relative pl-6 ">
-                <div class="flex flex-col flex-1 gap-2">
-                    <div
-                        class="absolute z-10 inline-flex items-center justify-center w-6 h-6 text-white rounded-full -left-3 ring-2 ring-white">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="text-red-500 bg-white" viewBox="0 0 32 32">
-                            <g fill="none" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M15 14h1v9h1m12-7a13 13 0 1 1-26 0a13 13 0 0 1 26 0Z" />
-                                <path fill="currentColor" d="M17 9.5a1 1 0 1 1-2 0a1 1 0 0 1 2 0Z" />
-                            </g>
-                        </svg>
-                    </div>
-                    <h4
-                        class="flex flex-col items-start text-base font-medium leading-6 lg:items-center md:flex-row text-red-500">
-                        <span class="flex-1">Catatan Penting</span>
-                    </h4>
-                    <ul class="text-sm text-slate-500">
-                        <li>- Jangan meminjamkan kartu kepada siswa lain!</li>
-                        <li>- Jika siswa sakit atau ijin bisa ijin di menu "Perizinan" dengan bukti yang
-                            Jelas dan Akurat.</li>
-                        <li>- Laporkan ke pihak sekolah jika kartu hilang atau rusak.</li>
-                    </ul>
-                </div>
-            </li>
-        </ul>
-    </div>
-    <footer class="bg-white dark:bg-gray-900">
-        <div class="container px-6 py-8 mx-auto">
-            <div class="flex flex-col items-center text-center">
+    <!-- Section Fitur Utama -->
+    <section id="fitur" class="relative py-16 bg-gradient-to-tr from-emerald-50 via-white to-green-50">
+        <!-- Pattern background SVG -->
+        <div class="absolute inset-0 opacity-10">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="dot-grid" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="1.5" fill="#10b981"></circle>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#dot-grid)" />
+            </svg>
+        </div>
 
-                <div class="flex flex-wrap justify-center mt-6 -mx-4">
-                    <a href="#"
-                        class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                        aria-label="Reddit"> Home </a>
-
-                    <a href="#about"
-                        class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                        aria-label="Reddit"> About </a>
-
-                    <a href="#cara-absen"
-                        class="mx-4 text-sm text-gray-600 transition-colors duration-300 hover:text-blue-500 dark:text-gray-300 dark:hover:text-blue-400"
-                        aria-label="Reddit"> Cara Absen </a>
-                </div>
-
+        <div class="relative container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-emerald-700 md:text-4xl">Fitur Utama</h2>
+                <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
+                    Sistem absensi sekolah modern dengan teknologi RFID untuk mencatat kehadiran
+                    siswa secara real-time, akurat, dan mudah digunakan.
+                </p>
             </div>
 
-            <hr class="my-6 border-gray-200 md:my-10 dark:border-gray-700" />
-
-            <div class="flex flex-col gap-3 items-center sm:flex-row sm:justify-between">
-                <p class="text-sm text-gray-500 dark:text-gray-300">© 2025 v3.4 Created by <a
-                        href="https://www.instagram.com/vortechdev_" class="hover:underline">VortechDev.</a></p>
-
-                <div class="flex -mx-2">
-                    <a href="https://www.instagram.com/vortechdev_"
-                        class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-                        aria-label="Reddit"><svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current"
-                            viewBox="-2 -2 24 24">
-                            <g fill="currentColor">
-                                <path
-                                    d="M14.017 0h-8.07A5.954 5.954 0 0 0 0 5.948v8.07a5.954 5.954 0 0 0 5.948 5.947h8.07a5.954 5.954 0 0 0 5.947-5.948v-8.07A5.954 5.954 0 0 0 14.017 0zm3.94 14.017a3.94 3.94 0 0 1-3.94 3.94h-8.07a3.94 3.94 0 0 1-3.939-3.94v-8.07a3.94 3.94 0 0 1 3.94-3.939h8.07a3.94 3.94 0 0 1 3.939 3.94v8.07z" />
-                                <path
-                                    d="M9.982 4.819A5.17 5.17 0 0 0 4.82 9.982a5.17 5.17 0 0 0 5.163 5.164a5.17 5.17 0 0 0 5.164-5.164A5.17 5.17 0 0 0 9.982 4.82zm0 8.319a3.155 3.155 0 1 1 0-6.31a3.155 3.155 0 0 1 0 6.31z" />
-                                <circle cx="15.156" cy="4.858" r="1.237" />
-                            </g>
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+                <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
-                    </a>
-
-                    <a href="#"
-                        class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-                        aria-label="Facebook">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M2.00195 12.002C2.00312 16.9214 5.58036 21.1101 10.439 21.881V14.892H7.90195V12.002H10.442V9.80204C10.3284 8.75958 10.6845 7.72064 11.4136 6.96698C12.1427 6.21332 13.1693 5.82306 14.215 5.90204C14.9655 5.91417 15.7141 5.98101 16.455 6.10205V8.56104H15.191C14.7558 8.50405 14.3183 8.64777 14.0017 8.95171C13.6851 9.25566 13.5237 9.68693 13.563 10.124V12.002H16.334L15.891 14.893H13.563V21.881C18.8174 21.0506 22.502 16.2518 21.9475 10.9611C21.3929 5.67041 16.7932 1.73997 11.4808 2.01722C6.16831 2.29447 2.0028 6.68235 2.00195 12.002Z">
-                            </path>
-                        </svg>
-                    </a>
-
-                    <a href="#"
-                        class="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
-                        aria-label="Github">
-                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" fill="none"
-                            xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M12.026 2C7.13295 1.99937 2.96183 5.54799 2.17842 10.3779C1.395 15.2079 4.23061 19.893 8.87302 21.439C9.37302 21.529 9.55202 21.222 9.55202 20.958C9.55202 20.721 9.54402 20.093 9.54102 19.258C6.76602 19.858 6.18002 17.92 6.18002 17.92C5.99733 17.317 5.60459 16.7993 5.07302 16.461C4.17302 15.842 5.14202 15.856 5.14202 15.856C5.78269 15.9438 6.34657 16.3235 6.66902 16.884C6.94195 17.3803 7.40177 17.747 7.94632 17.9026C8.49087 18.0583 9.07503 17.99 9.56902 17.713C9.61544 17.207 9.84055 16.7341 10.204 16.379C7.99002 16.128 5.66202 15.272 5.66202 11.449C5.64973 10.4602 6.01691 9.5043 6.68802 8.778C6.38437 7.91731 6.42013 6.97325 6.78802 6.138C6.78802 6.138 7.62502 5.869 9.53002 7.159C11.1639 6.71101 12.8882 6.71101 14.522 7.159C16.428 5.868 17.264 6.138 17.264 6.138C17.6336 6.97286 17.6694 7.91757 17.364 8.778C18.0376 9.50423 18.4045 10.4626 18.388 11.453C18.388 15.286 16.058 16.128 13.836 16.375C14.3153 16.8651 14.5612 17.5373 14.511 18.221C14.511 19.555 14.499 20.631 14.499 20.958C14.499 21.225 14.677 21.535 15.186 21.437C19.8265 19.8884 22.6591 15.203 21.874 10.3743C21.089 5.54565 16.9181 1.99888 12.026 2Z">
-                            </path>
-                        </svg>
-                    </a>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-700">Data Real-time</h3>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Kehadiran siswa tercatat langsung saat scan kartu tanpa menunggu lama.
+                    </p>
                 </div>
+
+                <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill="currentColor"
+                                d="M6 2a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4.257a5.503 5.503 0 0 1-.657-1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h4v3.5A1.5 1.5 0 0 0 11.5 8H15v1.022a5.5 5.5 0 0 1 1 .185V7.414a1.5 1.5 0 0 0-.44-1.06l-3.914-3.915A1.5 1.5 0 0 0 10.586 2H6Zm8.793 5H11.5a.5.5 0 0 1-.5-.5V3.207L14.793 7ZM9 14.5c0-.168.008-.335.022-.5H8.5a.5.5 0 0 0 0 1h.522A5.571 5.571 0 0 1 9 14.5Zm.207-1.5c.099-.349.23-.683.393-1H8.5a.5.5 0 0 0 0 1h.707Zm1.05-2c.313-.38.677-.716 1.08-1H8.5a.5.5 0 0 0 0 1h1.757ZM6.5 10a.5.5 0 1 0 0 1a.5.5 0 0 0 0-1ZM6 12.5a.5.5 0 1 1 1 0a.5.5 0 0 1-1 0Zm0 2a.5.5 0 1 1 1 0a.5.5 0 0 1-1 0Zm13 0a4.5 4.5 0 1 1-9 0a4.5 4.5 0 0 1 9 0Zm-4-3a.5.5 0 0 0-1 0v3a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 0-1H15v-2.5Z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-700">Rekap Otomatis</h3>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Rekap absensi harian dan bulanan langsung tersedia tanpa input manual.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24"
+                            fill="currentColor">
+                            <path fill="currentColor"
+                                d="M7.5 8.75c-.898 0-1.71.363-2.298.952A3.24 3.24 0 0 0 4.25 12c0 .898.363 1.71.952 2.298c.589.59 1.4.952 2.298.952c.77 0 1.474-.266 2.03-.713a.75.75 0 1 1 .94 1.17A4.73 4.73 0 0 1 7.5 16.75c-1.311 0-2.5-.532-3.359-1.391A4.74 4.74 0 0 1 2.75 12c0-1.312.532-2.5 1.391-3.359A4.74 4.74 0 0 1 7.5 7.25c1.294 0 2.366.399 3.359 1.391c.831.832 1.299 1.915 1.71 2.87l.055.127c.446 1.032.86 1.941 1.578 2.66c.589.59 1.4.952 2.298.952s1.71-.363 2.298-.952c.59-.589.952-1.4.952-2.298s-.363-1.71-.952-2.298A3.24 3.24 0 0 0 16.5 8.75c-.77 0-1.474.266-2.03.713a.75.75 0 1 1-.94-1.17A4.73 4.73 0 0 1 16.5 7.25c1.311 0 2.5.532 3.359 1.391A4.74 4.74 0 0 1 21.25 12c0 1.312-.532 2.5-1.391 3.359A4.74 4.74 0 0 1 16.5 16.75c-1.312 0-2.5-.532-3.359-1.391c-.949-.95-1.46-2.12-1.894-3.126l-.004-.01c-.453-1.049-.82-1.896-1.445-2.521C9.1 9.004 8.415 8.75 7.5 8.75" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-700">Akses Mudah</h3>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Guru & siswa dapat melihat data absensi siswa dengan cepat.
+                    </p>
+                </div>
+
+                <div class="p-6 bg-white rounded-2xl shadow-md hover:shadow-lg transition">
+                    <div class="flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-xl mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
+                            <path fill="currentColor"
+                                d="M10.146 3.248a2 2 0 0 1 3.708 0A7.003 7.003 0 0 1 19 10v4.697l1.832 2.748A1 1 0 0 1 20 19h-4.535a3.501 3.501 0 0 1-6.93 0H4a1 1 0 0 1-.832-1.555L5 14.697V10c0-3.224 2.18-5.94 5.146-6.752zM10.586 19a1.5 1.5 0 0 0 2.829 0h-2.83zM12 5a5 5 0 0 0-5 5v5a1 1 0 0 1-.168.555L5.869 17H18.13l-.963-1.445A1 1 0 0 1 17 15v-5a5 5 0 0 0-5-5z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-lg font-semibold text-slate-700">Notifikasi Kehadiran</h3>
+                    <p class="mt-2 text-sm text-slate-500">
+                        Orang tua/wali murid langsung mendapat pemberitahuan ketika siswa hadir atau terlambat.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cara-absen" class="relative bg-gradient-to-br from-emerald-50 via-white to-green-50">
+        <div class="absolute inset-0 opacity-10 pointer-events-none"
+            style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'20\' height=\'20\' viewBox=\'0 0 20 20\'><circle cx=\'2\' cy=\'2\' r=\'2\' fill=\'%23048a55\' opacity=\'1\'/></svg>');">
+        </div>
+        <div class="relative w-11/12 lg:w-8/12 mx-auto py-20">
+            <div
+                class="absolute inset-0 bg-[url('https://www.toptal.com/designers/subtlepatterns/patterns/dot-grid.png')] opacity-10">
+            </div>
+
+            <div class="relative">
+                <h1 class="text-3xl font-bold text-center mb-12 text-slate-800">
+                    Cara Absen
+                </h1>
+
+                <div class="relative border-l-2 mx-5 border-dashed border-emerald-200">
+                    <div class="mb-12 ml-6 group">
+                        <span
+                            class="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500 text-white ring-4 ring-white">
+                            1
+                        </span>
+                        <div class="p-5 rounded-2xl shadow-md bg-white hover:shadow-lg transition-all duration-300">
+                            <h4 class="font-semibold text-lg text-slate-700">
+                                Siapkan Kartu RFID Anda
+                            </h4>
+                            <p class="text-sm text-slate-500 mt-2">
+                                Setiap siswa memiliki kartu RFID pribadi.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-12 ml-6 group">
+                        <span
+                            class="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-teal-500 text-white ring-4 ring-white">
+                            2
+                        </span>
+                        <div class="p-5 rounded-2xl shadow-md bg-white hover:shadow-lg transition-all duration-300">
+                            <h4 class="font-semibold text-lg text-slate-700">
+                                Cari Alat Pemindai
+                            </h4>
+                            <p class="text-sm text-slate-500 mt-2">
+                                Tempelkan kartu RFID ke reader yang tersedia di area LAB saat
+                                datang atau pulang.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-12 ml-6 group">
+                        <span
+                            class="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-green-500 text-white ring-4 ring-white">
+                            3
+                        </span>
+                        <div class="p-5 rounded-2xl shadow-md bg-white hover:shadow-lg transition-all duration-300">
+                            <h4 class="font-semibold text-lg text-slate-700">
+                                Tempelkan Kartu ke Alat Pemindai
+                            </h4>
+                            <p class="text-sm text-slate-500 mt-2">
+                                Pastikan lampu indikator menyala atau terdengar bunyi <em>"bip"</em>
+                                sebagai tanda berhasil.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mb-12 ml-6 group">
+                        <span
+                            class="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-emerald-600 text-white ring-4 ring-white">
+                            4
+                        </span>
+                        <div class="p-5 rounded-2xl shadow-md bg-white hover:shadow-lg transition-all duration-300">
+                            <h4 class="font-semibold text-lg text-slate-700">
+                                Selesai!
+                            </h4>
+                            <p class="text-sm text-slate-500 mt-2">
+                                Siswa sudah tercatat hadir atau pulang.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="ml-6">
+                        <span
+                            class="absolute -left-4 flex items-center justify-center w-8 h-8 rounded-full bg-red-500 text-white ring-4 ring-white">
+                            !
+                        </span>
+                        <div
+                            class="p-5 rounded-2xl shadow-md bg-red-50 border border-red-200 hover:shadow-md transition-all duration-300">
+                            <h4 class="font-semibold text-lg text-red-600">
+                                Catatan Penting
+                            </h4>
+                            <ul class="text-sm text-slate-600 mt-2 space-y-1">
+                                <li>• Jangan meminjamkan kartu kepada siswa lain.</li>
+                                <li>
+                                    • Jika sakit atau izin, gunakan menu <strong>Perizinan</strong> dengan bukti jelas.
+                                </li>
+                                <li>• Laporkan ke pihak sekolah jika kartu hilang atau rusak.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="statistik" class="relative py-20 bg-white">
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" x="0" y="0" width="60" height="60" patternUnits="userSpaceOnUse">
+                        <path d="M60 0H0V60" fill="none" stroke="#10b981" stroke-width="1" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+
+        <div class="relative container mx-auto px-6">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-emerald-700 md:text-4xl">Statistik Singkat</h2>
+                <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
+                    Beberapa data utama dari sistem absensi sekolah berbasis RFID.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 bg-emerald-50 rounded-2xl shadow hover:shadow-md transition">
+                    <h3 class="count text-4xl font-extrabold text-emerald-600" data-target="<?php echo e($totalStudents); ?>">0</h3>
+                    <p class="mt-2 text-sm font-medium text-slate-600">Siswa Terdaftar</p>
+                </div>
+
+                <div class="p-6 bg-emerald-50 rounded-2xl shadow hover:shadow-md transition">
+                    <h3 class="count text-4xl font-extrabold text-emerald-600" data-target="<?php echo e($attendanceAccuracy); ?>">0
+                    </h3>
+                    <p class="mt-2 text-sm font-medium text-slate-600">Akurasi Kehadiran (%)</p>
+                </div>
+
+                <div class="p-6 bg-emerald-50 rounded-2xl shadow hover:shadow-md transition">
+                    <h3 class="count text-4xl font-extrabold text-emerald-600" data-target="<?php echo e($totalAttendances); ?>">0
+                    </h3>
+                    <p class="mt-2 text-sm font-medium text-slate-600">Data Absensi Tercatat</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="relative py-20 bg-gradient-to-tr from-white via-emerald-50 to-green-50">
+        <div class="absolute inset-0 opacity-5">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="faq-dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <circle cx="2" cy="2" r="2" fill="#10b981" />
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#faq-dots)" />
+            </svg>
+        </div>
+
+        <div class="relative container mx-auto px-6 max-w-4xl">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-emerald-700 md:text-4xl">Pertanyaan Umum</h2>
+                <p class="mt-3 text-slate-600 max-w-2xl mx-auto">
+                    Beberapa pertanyaan yang sering diajukan terkait sistem absensi RFID sekolah.
+                </p>
+            </div>
+
+            <div class="space-y-4">
+                <details
+                    class="p-5 rounded-xl border border-emerald-200 bg-white shadow-sm group open:shadow-md transition">
+                    <summary
+                        class="[&::-webkit-details-marker]:hidden relative flex justify-between items-center px-4 font-medium cursor-pointer text-slate-700 list-none focus-visible:outline-none group-hover:text-emerald-700">
+                        Bagaimana cara siswa melakukan absensi?
+                        <svg class="w-5 h-5 text-emerald-600 transform transition-transform duration-300 group-open:rotate-180"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+
+                    </summary>
+                    <p class="mt-4 px-4 text-slate-600 text-sm leading-relaxed">
+                        Siswa cukup menempelkan kartu RFID ke alat pemindai (reader) yang tersedia.
+                        Sistem otomatis mencatat waktu hadir atau pulang.
+                    </p>
+                </details>
+
+                <details
+                    class="p-5 rounded-xl border border-emerald-200 bg-white shadow-sm group open:shadow-md transition">
+                    <summary
+                        class="[&::-webkit-details-marker]:hidden relative flex justify-between items-center px-4 font-medium cursor-pointer text-slate-700 list-none focus-visible:outline-none group-hover:text-emerald-700">
+                        Apakah orang tua bisa memantau absensi?
+                        <svg class="w-5 h-5 text-emerald-600 transform transition-transform duration-300 group-open:rotate-180"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+
+                    </summary>
+                    <p class="mt-4 px-4 text-slate-600 text-sm leading-relaxed">
+                        Ya, sistem bisa diintegrasikan dengan notifikasi ke orang tua melalui aplikasi
+                        atau pesan singkat (SMS/WhatsApp) mengenai kehadiran anak.
+                    </p>
+                </details>
+
+                <details
+                    class="p-5 rounded-xl border border-emerald-200 bg-white shadow-sm group open:shadow-md transition">
+                    <summary
+                        class="[&::-webkit-details-marker]:hidden relative flex justify-between items-center px-4 font-medium cursor-pointer text-slate-700 list-none focus-visible:outline-none group-hover:text-emerald-700">
+                        Bagaimana jika kartu siswa hilang?
+                        <svg class="w-5 h-5 text-emerald-600 transform transition-transform duration-300 group-open:rotate-180"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+
+                    </summary>
+                    <p class="mt-4 px-4 text-slate-600 text-sm leading-relaxed">
+                        Siswa harus segera melapor ke pihak sekolah agar kartu lama dinonaktifkan
+                        dan kartu baru bisa diterbitkan.
+                    </p>
+                </details>
+
+                <details
+                    class="p-5 rounded-xl border border-emerald-200 bg-white shadow-sm group open:shadow-md transition">
+                    <summary
+                        class="[&::-webkit-details-marker]:hidden relative flex justify-between items-center px-4 font-medium cursor-pointer text-slate-700 list-none focus-visible:outline-none group-hover:text-emerald-700">
+                        Apakah data absensi bisa diekspor?
+                        <svg class="w-5 h-5 text-emerald-600 transform transition-transform duration-300 group-open:rotate-180"
+                            fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path d="M19 9l-7 7-7-7" />
+                        </svg>
+
+                    </summary>
+                    <p class="mt-4 px-4 text-slate-600 text-sm leading-relaxed">
+                        Tentu, admin sekolah bisa mengekspor laporan absensi dalam format Excel atau PDF
+                        sesuai kebutuhan.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="relative">
+        <div class="absolute inset-0 bg-gradient-to-tr from-emerald-50 via-white to-green-50"></div>
+
+        <div class="relative container px-6 py-12 mx-auto">
+            <div class="grid gap-10 text-center md:text-left sm:grid-cols-2 lg:grid-cols-4">
+
+                <div>
+                    <a href="#" class="flex items-center justify-center md:justify-start gap-2 mb-4">
+                        <img src="<?php echo e(asset('storage/image/logo-smk2klt.png')); ?>" alt="Logo SMKN 2 Klaten"
+                            class="w-12 md:w-14">
+                        <span class="font-semibold text-slate-700">SMKN 2 KLATEN | RFID</span>
+                    </a>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        Sistem Absensi RFID modern untuk meningkatkan kedisiplinan, efisiensi, dan transparansi di
+                        lingkungan sekolah.
+                    </p>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 text-sm font-semibold text-slate-700 uppercase">Navigasi</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-slate-600 hover:text-emerald-600 transition-colors">Home</a>
+                        </li>
+                        <li><a href="#about" class="text-slate-600 hover:text-emerald-600 transition-colors">About</a>
+                        </li>
+                        <li><a href="#cara-absen" class="text-slate-600 hover:text-emerald-600 transition-colors">Cara
+                                Absen</a></li>
+                        <li><a href="<?php echo e(route('login')); ?>"
+                                class="text-slate-600 hover:text-emerald-600 transition-colors">Login</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 text-sm font-semibold text-slate-700 uppercase">Kontak</h3>
+                    <ul class="space-y-2 text-slate-600">
+                        <li>Jl. Senden Bramen, RT 13/RW 06 Senden, Ngawen, Klaten, Jawa Tengah, Indonesia</li>
+                        <li>
+                            <a href="https://smkn2klaten.sch.id" target="_blank" rel="noopener noreferrer"
+                                class="flex justify-center sm:justify-normal items-center gap-2 text-slate-600 hover:text-emerald-600 transition-colors duration-300">
+                                <p class="text-center">
+                                    <span class="font-semibold">Web Resmi :</span>
+                                    <span class="underline decoration-dotted">smkn2klaten.sch.id</span>
+                                </p>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="mb-4 text-sm font-semibold text-slate-700 uppercase">Ikuti Kami</h3>
+                    <div class="flex justify-center md:justify-start space-x-4">
+                        <a href="https://www.instagram.com/vortechdev_"
+                            class="text-slate-600 hover:text-emerald-600 transition-colors">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 fill-current" viewBox="-2 -2 24 24">
+                                <g fill="currentColor">
+                                    <path
+                                        d="M14.017 0h-8.07A5.954 5.954 0 0 0 0 5.948v8.07a5.954 5.954 0 0 0 5.948 5.947h8.07a5.954 5.954 0 0 0 5.947-5.948v-8.07A5.954 5.954 0 0 0 14.017 0zm3.94 14.017a3.94 3.94 0 0 1-3.94 3.94h-8.07a3.94 3.94 0 0 1-3.939-3.94v-8.07a3.94 3.94 0 0 1 3.94-3.939h8.07a3.94 3.94 0 0 1 3.939 3.94v8.07z" />
+                                    <path
+                                        d="M9.982 4.819A5.17 5.17 0 0 0 4.82 9.982a5.17 5.17 0 0 0 5.163 5.164a5.17 5.17 0 0 0 5.164-5.164A5.17 5.17 0 0 0 9.982 4.82zm0 8.319a3.155 3.155 0 1 1 0-6.31a3.155 3.155 0 0 1 0 6.31z" />
+                                    <circle cx="15.156" cy="4.858" r="1.237" />
+                                </g>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-slate-600 hover:text-emerald-600 transition-colors">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M2.00195 12.002C2.00312 16.9214 5.58036 21.1101 10.439 21.881V14.892H7.90195V12.002H10.442V9.80204C10.3284 8.75958 10.6845 7.72064 11.4136 6.96698C12.1427 6.21332 13.1693 5.82306 14.215 5.90204C14.9655 5.91417 15.7141 5.98101 16.455 6.10205V8.56104H15.191C14.7558 8.50405 14.3183 8.64777 14.0017 8.95171C13.6851 9.25566 13.5237 9.68693 13.563 10.124V12.002H16.334L15.891 14.893H13.563V21.881C18.8174 21.0506 22.502 16.2518 21.9475 10.9611C21.3929 5.67041 16.7932 1.73997 11.4808 2.01722C6.16831 2.29447 2.0028 6.68235 2.00195 12.002Z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <a href="#" class="text-slate-600 hover:text-emerald-600 transition-colors">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M12.026 2C7.13295 1.99937 2.96183 5.54799 2.17842 10.3779C1.395 15.2079 4.23061 19.893 8.87302 21.439C9.37302 21.529 9.55202 21.222 9.55202 20.958C9.55202 20.721 9.54402 20.093 9.54102 19.258C6.76602 19.858 6.18002 17.92 6.18002 17.92C5.99733 17.317 5.60459 16.7993 5.07302 16.461C4.17302 15.842 5.14202 15.856 5.14202 15.856C5.78269 15.9438 6.34657 16.3235 6.66902 16.884C6.94195 17.3803 7.40177 17.747 7.94632 17.9026C8.49087 18.0583 9.07503 17.99 9.56902 17.713C9.61544 17.207 9.84055 16.7341 10.204 16.379C7.99002 16.128 5.66202 15.272 5.66202 11.449C5.64973 10.4602 6.01691 9.5043 6.68802 8.778C6.38437 7.91731 6.42013 6.97325 6.78802 6.138C6.78802 6.138 7.62502 5.869 9.53002 7.159C11.1639 6.71101 12.8882 6.71101 14.522 7.159C16.428 5.868 17.264 6.138 17.264 6.138C17.6336 6.97286 17.6694 7.91757 17.364 8.778C18.0376 9.50423 18.4045 10.4626 18.388 11.453C18.388 15.286 16.058 16.128 13.836 16.375C14.3153 16.8651 14.5612 17.5373 14.511 18.221C14.511 19.555 14.499 20.631 14.499 20.958C14.499 21.225 14.677 21.535 15.186 21.437C19.8265 19.8884 22.6591 15.203 21.874 10.3743C21.089 5.54565 16.9181 1.99888 12.026 2Z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="my-8 border-emerald-100" />
+
+            <div class="flex flex-col items-center justify-between gap-4 sm:flex-row">
+                <p class="text-sm text-slate-500">
+                    © <span id="year"></span> v3.5 Created by
+                    <a href="https://www.instagram.com/vortechdev_" class="text-emerald-600 hover:underline">
+                        VortechDev
+                    </a>
+                </p>
             </div>
         </div>
     </footer>
 
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Glide.js/3.0.2/glide.js"></script>
     <script>
+        document.getElementById("year").textContent = new Date().getFullYear();
+
         var glide02 = new Glide('.glide-02', {
             type: 'carousel',
             focusAt: 'center',
@@ -272,6 +501,42 @@
         });
 
         glide02.mount();
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const counters = document.querySelectorAll(".count");
+            const speed = 50;
+
+            const animateCount = (counter) => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute("data-target");
+                    const count = +counter.innerText;
+                    const increment = Math.ceil(target / speed);
+
+                    if (count < target) {
+                        counter.innerText = count + increment;
+                        setTimeout(updateCount, 30);
+                    } else {
+                        counter.innerText = target.toLocaleString();
+                    }
+                };
+                updateCount();
+            };
+
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        animateCount(entry.target);
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.5
+            });
+
+            counters.forEach((counter) => {
+                observer.observe(counter);
+            });
+        });
     </script>
 <?php $__env->stopSection(); ?>
 

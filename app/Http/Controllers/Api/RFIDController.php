@@ -6,6 +6,7 @@ use App\Models\TmpRfid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Device;
 use App\Models\User;
 
 class RFIDController extends Controller
@@ -29,24 +30,32 @@ class RFIDController extends Controller
     public function store(Request $request)
     {
         $nokartu = $request->query('nokartu');
-
-        if (!$nokartu) {
-            return response()->json(['message' => 'No kartu tidak ditemukan'], 400);
+        $source  = $request->query('source');
+         
+        if (!$nokartu || !$source) {
+            return response()->json(['message' => 'No kartu atau source tidak ditemukan'], 400);
         }
 
-        TmpRfid::truncate();
+        $device = Device::where('source', $source)->first();
+
+        if (!$device) {
+            return response()->json(['message' => 'Device tidak ditemukan'], 404);
+        }
+
+        TmpRfid::where('device_id', $device->id)->delete();
 
         $inserted = TmpRfid::create([
-            'nokartu' => $nokartu
+            'nokartu'   => $nokartu,
+            'device_id' => $device->id
         ]);
 
         if ($inserted) {
             return response()->json([
                 'message' => 'Berhasil',
-                'data' => $inserted
+                'data'    => $inserted,
             ], 200);
         } else {
-            return response()->json(['message' => 'Gagal'], 500);
+            return response()->json(['message' => 'Gagal menyimpan'], 500);
         }
     }
 

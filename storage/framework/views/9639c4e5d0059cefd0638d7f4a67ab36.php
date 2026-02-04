@@ -41,40 +41,42 @@
         </div>
 
 
-        <div class="bg-white rounded-2xl shadow p-4 overflow-x-auto">
+        <div class="bg-white rounded-2xl shadow p-4">
             <h3 class="text-lg font-semibold mb-4">Data Kehadiran Terbaru</h3>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    <?php $__currentLoopData = $recentAttendances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $att): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->student->name); ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->attendance_date); ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_in ?? '-'); ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_out ?? '-'); ?></td>
-                            <td class="px-4 py-2 whitespace-nowrap rounded-lg">
-                                <span
-                                    class="inline-flex font-semibold px-3 py-0.5 rounded-full
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100">
+                        <?php $__currentLoopData = $recentAttendances; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $att): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->student->name); ?></td>
+                                <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->attendance_date); ?></td>
+                                <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_in ?? '-'); ?></td>
+                                <td class="px-4 py-2 whitespace-nowrap"><?php echo e($att->time_out ?? '-'); ?></td>
+                                <td class="px-4 py-2 whitespace-nowrap rounded-lg">
+                                    <span
+                                        class="inline-flex font-semibold px-3 py-0.5 rounded-full
                                     <?php if($att->status->id == 1): ?> text-red-600 bg-red-100
                                     <?php elseif($att->status->id == 2): ?> text-emerald-600 bg-emerald-100
                                     <?php elseif($att->status->id == 3): ?> text-blue-600 bg-blue-100
                                     <?php else: ?> text-amber-600 bg-amber-100 <?php endif; ?>
                                     "><?php echo e($att->status->status_name); ?></span>
-                            </td>
-                        </tr>
-                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                    </tbody>
+                </table>
+            </div>
             <div class="sticky left-0 flex justify-center mt-5">
-                <a href="<?php echo e(route('attendance.monthly')); ?>"
+                <a href="<?php echo e(route('attendance.monthly.student')); ?>"
                     class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
                     Lihat Semua Data Absen
                 </a>

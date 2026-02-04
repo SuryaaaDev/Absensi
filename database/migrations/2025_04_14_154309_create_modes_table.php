@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('modes', function (Blueprint $table) {
             $table->id();
             $table->enum('mode_name', ['masuk', 'pulang'])->default('masuk');
+            $table->enum('absen_mode', ['rfid', 'manual'])->default('rfid');
             $table->timestamps();
         });
     }

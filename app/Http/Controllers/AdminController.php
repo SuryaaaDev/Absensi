@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
 
 class AdminController extends Controller
@@ -32,7 +33,6 @@ class AdminController extends Controller
                 $q->where('status_name', 'Alpha');
             })->count();
 
-        // Chart data: attendance per day (last 7 days)
         $last7Days = collect(range(0, 6))->map(function ($i) {
             return now()->subDays($i)->format('Y-m-d');
         })->reverse();
@@ -47,12 +47,10 @@ class AdminController extends Controller
             ];
         });
 
-        // Pie chart data: status distribution
         $rawStatusCounts = Status::withCount(['attendance' => function ($q) use ($today) {
             $q->whereDate('attendance_date', $today);
         }])->get();
 
-        // Filter yang attendance_count > 0
         $filtered = $rawStatusCounts->filter(fn($s) => $s->attendance_count > 0)->values();
 
         $pieLabels = $filtered->pluck('status_name')->values();
@@ -97,27 +95,36 @@ class AdminController extends Controller
 
     public function updateProfile(Request $request, $id)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:75',
-            'email' => 'required|email',
-            'telepon' => 'required|string|max:14',
-            'password' => 'nullable|min:3',
-        ]);
+        try {
+            $user = User::findOrFail($id);
 
-        $name = Str::title($request->name);
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255|unique:users,email,' . $user->id,
+                'telephone' => 'nullable|string|max:20',
+                'profile' => 'nullable|image|mimes:jpeg,png,jpg,svg|max:2048',
+            ]);
 
-        $user = User::findOrFail($id);
-        $user->name = $name;
-        $user->email = $request->email;
-        $user->telepon = $request->telepon;
+            $user->name = $request->name;
+            $user->email = $request->email;
+            $user->telephone = $request->telephone;
 
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password);
+            if ($request->hasFile('profile')) {
+                if ($user->profile && Storage::disk('public')->exists($user->profile)) {
+                    Storage::disk('public')->delete($user->profile);
+                }
+
+                $path = $request->file('profile')->store('profiles', 'public');
+                $user->profile = $path;
+            }
+
+            $user->save();
+
+            Alert::success('Berhasil', 'Profil berhasil diperbarui!');
+            return redirect()->back();
+        } catch (\Exception $e) {
+            Alert::error('Gagal', 'Terjadi kesalahan: ' . $e->getMessage());
+            return redirect()->back();
         }
-
-        $user->save();
-        Alert::success('Success', 'Profil berhasil diperbarui!');
-
-        return redirect()->back();
     }
 }

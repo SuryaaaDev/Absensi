@@ -11,21 +11,25 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('card_number')->unique();
-            $table->integer('absen');
-            $table->string('name');
-            $table->unsignedBigInteger('class_id')->nullable();
-            $table->string('email')->unique();
-            $table->string('telepon');
-            $table->boolean('is_admin')->default(false);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
-            $table->timestamps();
-            $table->foreign('class_id')->references('id')->on('student_classes')->nullOnDelete();
-        });
+            Schema::create('users', function (Blueprint $table) {
+                $table->id();
+                $table->string('card_number')->unique();
+                $table->string('profile')->nullable();
+                $table->string('NISN');
+                $table->integer('absen');
+                $table->string('name');
+                $table->unsignedBigInteger('class_id')->nullable();
+                $table->string('email')->unique();
+                $table->string('telephone');
+                $table->string('parents_phone');
+                $table->string('address')->nullable();
+                $table->enum('role', ['admin', 'educator', 'student'])->default('student');
+                $table->timestamp('email_verified_at')->nullable();
+                $table->string('password');
+                $table->rememberToken();
+                $table->timestamps();
+                $table->foreign('class_id')->references('id')->on('student_classes')->nullOnDelete();
+            });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();

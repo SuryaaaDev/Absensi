@@ -43,40 +43,42 @@
         </div>
 
 
-        <div class="bg-white rounded-2xl shadow p-4 overflow-x-auto">
+        <div class="bg-white rounded-2xl shadow p-4">
             <h3 class="text-lg font-semibold mb-4">Data Kehadiran Terbaru</h3>
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
-                        <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-100">
-                    @foreach ($recentAttendances as $att)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-100">
                         <tr>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->student->name }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->attendance_date }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_in ?? '-' }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_out ?? '-' }}</td>
-                            <td class="px-4 py-2 whitespace-nowrap rounded-lg">
-                                <span
-                                    class="inline-flex font-semibold px-3 py-0.5 rounded-full
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Nama</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Tanggal</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Masuk</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Pulang</th>
+                            <th class="px-4 py-2 text-left whitespace-nowrap">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-100">
+                        @foreach ($recentAttendances as $att)
+                            <tr>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $att->student->name }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $att->attendance_date }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_in ?? '-' }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap">{{ $att->time_out ?? '-' }}</td>
+                                <td class="px-4 py-2 whitespace-nowrap rounded-lg">
+                                    <span
+                                        class="inline-flex font-semibold px-3 py-0.5 rounded-full
                                     @if ($att->status->id == 1) text-red-600 bg-red-100
                                     @elseif($att->status->id == 2) text-emerald-600 bg-emerald-100
                                     @elseif($att->status->id == 3) text-blue-600 bg-blue-100
                                     @else text-amber-600 bg-amber-100 @endif
                                     ">{{ $att->status->status_name }}</span>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
             <div class="sticky left-0 flex justify-center mt-5">
-                <a href="{{ route('attendance.monthly') }}"
+                <a href="{{ route('attendance.monthly.student') }}"
                     class="inline-block bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700 transition">
                     Lihat Semua Data Absen
                 </a>

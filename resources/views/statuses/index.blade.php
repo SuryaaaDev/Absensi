@@ -72,14 +72,14 @@
                     @foreach ($statuses as $status)
                         <tr class="*:text-gray-900 *:first:font-medium">
                             <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap">{{ $status->status_name }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $status['status_name'] }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 @if ($loop->first || $loop->iteration == 2 || $loop->iteration == 3)
                                     <div class="flex items-center gap-3">
                                         <span
                                             class="inline-flex divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm">
                                             <a href="{{ route('show.status', [
-                                                'name' => Str::slug($status->status_name),
+                                                'name' => Str::slug($status['status_name']),
                                             ]) }}"
                                                 class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:relative"
                                                 aria-label="View">
@@ -107,7 +107,7 @@
                                 @else
                                     <span
                                         class="inline-flex divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm">
-                                        <button type="button" popovertarget="edit-status-{{ $status->id }}"
+                                        <button type="button" popovertarget="edit-status-{{ $status['id'] }}"
                                             class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                                                 <g fill="none" stroke="currentColor" stroke-linecap="round"
@@ -120,7 +120,7 @@
                                         </button>
 
                                         <a href="{{ route('show.status', [
-                                            'name' => Str::slug($status->status_name),
+                                            'name' => Str::slug($status['status_name']),
                                         ]) }}"
                                             class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:relative"
                                             aria-label="View">
@@ -133,7 +133,7 @@
                                             </svg>
                                         </a>
 
-                                        <a href="{{ route('delete.status', $status->id) }}" data-confirm-delete="true"
+                                        <a href="{{ route('delete.status', $status['id']) }}" data-confirm-delete="true"
                                             class="px-3 py-1.5 cursor-pointer text-sm font-medium bg-red-600 transition-colors hover:bg-red-500 hover:text-gray-900 focus:relative">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
                                                 <path fill="none" stroke="currentColor" stroke-linecap="round"
@@ -144,12 +144,12 @@
                                     </span>
                                 @endif
 
-                                <section popover id="edit-status-{{ $status->id }}">
+                                <section popover id="edit-status-{{ $status['id'] }}">
                                     <div
                                         class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
                                         <div class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-lg z-10">
                                             <div class="flex w-full justify-end">
-                                                <button type="button" popovertarget="edit-status-{{ $status->id }}"
+                                                <button type="button" popovertarget="edit-status-{{ $status['id'] }}"
                                                     popovertargetaction="hide"
                                                     class="cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                                                     <svg class="w-6 h-6 text-gray-800 hover:text-gray-500"
@@ -166,7 +166,7 @@
                                             <h2 class="text-lg font-semibold text-gray-700 capitalize">Edit
                                                 Keterangan
                                             </h2>
-                                            <form action="{{ route('edit.status', $status->id) }}" method="POST">
+                                            <form action="{{ route('edit.status', $status['id']) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -175,7 +175,7 @@
                                                             Keterangan</label>
                                                         <input id="status_name" type="status_name"
                                                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                                            name="status_name" value="{{ $status->status_name }}"
+                                                            name="status_name" value="{{ $status['status_name'] }}"
                                                             required>
                                                     </div>
                                                 </div>

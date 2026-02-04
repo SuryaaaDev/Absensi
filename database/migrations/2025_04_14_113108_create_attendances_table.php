@@ -18,9 +18,12 @@ return new class extends Migration
             $table->time('time_in')->nullable();
             $table->time('time_out')->nullable();
             $table->unsignedBigInteger('status_id')->default(1)->nullable();
+            $table->unsignedBigInteger('device_id')->nullable();
+            $table->enum('type', ['siswa', 'divisi'])->default('siswa');
             $table->timestamps();
             $table->foreign('student_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('statuses')->nullOnDelete();
+            $table->foreign('device_id')->references('id')->on('devices')->onDelete('cascade');
 
             // kombinasi unik: satu siswa hanya satu data per tanggal
             $table->unique(['student_id', 'attendance_date']);

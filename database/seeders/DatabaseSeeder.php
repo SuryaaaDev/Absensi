@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
                 'class_id' => $faker->numberBetween(1, 6),
                 'email' => $faker->unique()->safeEmail(),
                 'telepon' => $faker->phoneNumber(),
-                'is_admin' => false,
+                'role' => 'siswa',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'),
                 'remember_token' => Str::random(10),

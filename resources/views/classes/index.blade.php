@@ -69,7 +69,7 @@
                 </thead>
 
                 <tbody class="divide-y divide-gray-200">
-                    @if ($classes->isEmpty())
+                    @if (empty($classes))
                         <tr>
                             <td colspan="3" class="py-16 whitespace-nowrap">
                                 <div class="flex flex-col items-center justify-center text-center text-gray-600">
@@ -90,11 +90,11 @@
                     @foreach ($classes as $class)
                         <tr class="*:text-gray-900 *:first:font-medium">
                             <td class="px-3 py-2 whitespace-nowrap">{{ $loop->iteration }}</td>
-                            <td class="px-3 py-2 whitespace-nowrap">{{ $class->class_name }}</td>
+                            <td class="px-3 py-2 whitespace-nowrap">{{ $class['class_name'] }}</td>
                             <td class="px-3 py-2 whitespace-nowrap">
                                 <span
                                     class="inline-flex divide-x divide-gray-300 overflow-hidden rounded border border-gray-300 bg-white shadow-sm">
-                                    <button type="button" popovertarget="edit-class-{{ $class->id }}"
+                                    <button type="button" popovertarget="edit-class-{{ $class['id'] }}"
                                         class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-50 hover:text-gray-900 focus:relative"
                                         aria-label="Edit">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
@@ -108,8 +108,8 @@
                                     </button>
 
                                     <a href="{{ route('show.class', [
-                                        'id' => $class->id,
-                                        'slug' => Str::slug($class->class_name),
+                                        'id' => $class['id'],
+                                        'slug' => Str::slug($class['class_name']),
                                     ]) }}"
                                         class="px-3 py-1.5 cursor-pointer text-sm font-medium transition-colors hover:bg-gray-100 hover:text-gray-900 focus:relative"
                                         aria-label="View">
@@ -122,7 +122,7 @@
                                         </svg>
                                     </a>
                                     
-                                    <a href="{{ route('delete.class', $class->id) }}" data-confirm-delete="true"
+                                    <a href="{{ route('delete.class', $class['id']) }}" data-confirm-delete="true"
                                         class="px-3 py-1.5 cursor-pointer text-sm font-medium bg-red-600 transition-colors hover:bg-red-500 hover:text-gray-900 focus:relative"
                                         aria-label="Delete">
                                         <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24">
@@ -133,12 +133,12 @@
                                     </a>
                                 </span>
 
-                                <section popover id="edit-class-{{ $class->id }}">
+                                <section popover id="edit-class-{{ $class['id'] }}">
                                     <div
                                         class="fixed inset-0 z-50 min-h-screen w-full flex justify-center items-center py-10 px-4 bg-black/40 transition overflow-y-scroll">
                                         <div class="max-w-4xl p-6 m-auto bg-white rounded-md shadow-lg z-10">
                                             <div class="flex w-full justify-end">
-                                                <button type="button" popovertarget="edit-class-{{ $class->id }}"
+                                                <button type="button" popovertarget="edit-class-{{ $class['id'] }}"
                                                     popovertargetaction="hide"
                                                     class="cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
                                                     <svg class="w-6 h-6 text-gray-800 hover:text-gray-500"
@@ -154,7 +154,7 @@
                                             <h2 class="text-lg font-semibold text-gray-700 capitalize">
                                                 Edit Kelas
                                             </h2>
-                                            <form action="{{ route('edit.class', $class->id) }}" method="POST">
+                                            <form action="{{ route('edit.class', $class['id']) }}" method="POST">
                                                 @csrf
                                                 @method('PUT')
                                                 <div class="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
@@ -163,7 +163,7 @@
                                                             Kelas</label>
                                                         <input id="class_name" type="class_name"
                                                             class="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-300 rounded-md focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring"
-                                                            name="class_name" value="{{ $class->class_name }}" required>
+                                                            name="class_name" value="{{ $class['class_name'] }}" required>
                                                     </div>
                                                 </div>
 

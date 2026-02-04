@@ -5,42 +5,61 @@
 @endsection
 
 @section('content')
-    <div class="p-5 ml-17 sm:ml-64 flex flex-col gap-3">
-        <div class="bg-white shadow-sm p-6 rounded-lg lg:w-2/5 flex justify-between">
+    <div class="p-5 ml-17 sm:ml-64 flex flex-col gap-4">
+        <div class="bg-white shadow-lg p-6 rounded-lg lg:w-2/5 flex justify-between items-center">
             <label for="mode_name">
                 <span class="font-bold text-md">Mode Absen</span>
                 <p class="text-gray-800 text-sm mb-3">Ganti mode absen untuk kehadiran atau kepulangan.</p>
-                <p class="text-gray-800 font-mono font-bold">=> {{ $modeName }}</p>
+                <p class="text-gray-800 font-mono font-bold">=> {{ ucfirst($mode->mode_name) }}</p>
             </label>
             <form action="{{ route('mode') }}" method="POST">
                 @csrf
-                <div class="flex justify-end mt-6">
-                    <button
-                        class="py-2 px-4 cursor-pointer leading-5 text-white transition-colors duration-300 transform bg-blue-700 rounded-md hover:bg-blue-600 focus:outline-none focus:bg-blue-600"
-                        type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 1024 1027">
-                            <path fill="currentColor"
-                                d="M990 1L856 135q-69-63-157.5-98.5T512 1Q353 1 223.5 90.5T37 323l119 48q43-108 139.5-175T512 129q145 0 254 97L640 353q-1 14 8.5 23.5T672 385h309q14 0 27.5-13.5T1023 344l1-320q1-24-34-23zM512 897q-145 0-254-96l126-127q1-14-8.5-23.5T352 641H43q-14 1-27.5 14.5T1 683l-1 320q-1 24 34 23l134-134q69 63 157.5 98t186.5 35q159 0 288.5-89T987 703l-119-47q-43 108-139.5 174.5T512 897z" />
-                        </svg>
-                    </button>
-                </div>
+                <button name="toggle_mode_name" value="1"
+                    class="flex items-center py-2 px-4 text-white bg-blue-700 rounded-md hover:bg-blue-600 transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 1024 1027">
+                        <path fill="currentColor"
+                            d="M990 1L856 135q-69-63-157.5-98.5T512 1Q353 1 223.5 90.5T37 323l119 48q43-108 139.5-175T512 129q145 0 254 97L640 353q-1 14 8.5 23.5T672 385h309q14 0 27.5-13.5T1023 344l1-320q1-24-34-23zM512 897q-145 0-254-96l126-127q1-14-8.5-23.5T352 641H43q-14 1-27.5 14.5T1 683l-1 320q-1 24 34 23l134-134q69 63 157.5 98t186.5 35q159 0 288.5-89T987 703l-119-47q-43 108-139.5 174.5T512 897z" />
+                    </svg>
+                    Ganti
+                </button>
             </form>
         </div>
 
-        <div class="bg-white shadow-sm p-6 rounded-lg lg:w-2/6 flex flex-col">
+        <div class="bg-white shadow-lg p-6 rounded-lg lg:w-2/5 flex justify-between items-center">
+            <label for="absen_mode">
+                <span class="font-bold text-md">Tipe Mode</span>
+                <p class="text-gray-800 text-sm mb-3">Ganti antara mode absensi RFID atau Manual.</p>
+                <p class="text-gray-800 font-mono font-bold">=> {{ strtoupper($mode->absen_mode) }}</p>
+            </label>
+            <form action="{{ route('mode') }}" method="POST">
+                @csrf
+                <button name="toggle_absen_mode" value="1"
+                    class="flex items-center py-2 px-4 text-white bg-green-700 rounded-md hover:bg-green-600 transition cursor-pointer">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 1024 1027">
+                        <path fill="currentColor"
+                            d="M990 1L856 135q-69-63-157.5-98.5T512 1Q353 1 223.5 90.5T37 323l119 48q43-108 139.5-175T512 129q145 0 254 97L640 353q-1 14 8.5 23.5T672 385h309q14 0 27.5-13.5T1023 344l1-320q1-24-34-23zM512 897q-145 0-254-96l126-127q1-14-8.5-23.5T352 641H43q-14 1-27.5 14.5T1 683l-1 320q-1 24 34 23l134-134q69 63 157.5 98t186.5 35q159 0 288.5-89T987 703l-119-47q-43 108-139.5 174.5T512 897z" />
+                    </svg>
+                    Ganti
+                </button>
+            </form>
+        </div>
+
+        <div class="bg-white shadow-lg p-6 rounded-lg lg:w-2/5 flex flex-col">
             <h1 class="font-bold text-md">Batas Waktu</h1>
             <p class="text-gray-800 text-sm mb-3">Atur batas waktu yang digunakan untuk absen.</p>
-            <div class="flex justify-between flex-wrap">
+            <div class="sm:flex justify-between">
                 <div class="flex flex-col gap-2 mt-2">
                     <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Masuk :</label>
                         <span
-                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->in }}</span>
+                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit?->in ? date('H:i', strtotime($timeLimit->in)) : '-' }}
+                        </span>
                     </div>
                     <div class="flex gap-2 items-center flex-wrap">
                         <label class="font-semibold text-md">Jam Pulang :</label>
                         <span
-                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit->out }}</span>
+                            class="border border-black p-1 rounded-lg text-gray-800 font-mono font-bold">{{ $timeLimit?->out ? date('H:i', strtotime($timeLimit->out)) : '-' }}
+                        </span>
                     </div>
                 </div>
                 <div class="flex justify-end h-full mt-5 sm:mt-16">
@@ -65,9 +84,9 @@
                             <div class="flex w-full justify-end">
                                 <button type="button" popovertarget="edit-time" popovertargetaction="hide"
                                     class="cursor-pointer rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black">
-                                    <svg class="w-6 h-6 text-gray-800 hover:text-gray-500"
-                                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                        fill="none" viewBox="0 0 24 24">
+                                    <svg class="w-6 h-6 text-gray-800 hover:text-gray-500" aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                        viewBox="0 0 24 24">
                                         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                             stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
                                     </svg>
@@ -80,13 +99,15 @@
                                 <div class="flex flex-col gap-2 mt-4 ">
                                     <div class="flex gap-2 items-center">
                                         <label class="font-semibold text-md">Jam Masuk :</label>
-                                        <input type="time" class="border border-black p-1 rounded-lg font-semibold text-black"
-                                            value="{{ $timeLimit->in }}" name="in">
+                                        <input type="time"
+                                            class="border border-black p-1 rounded-lg font-semibold text-black"
+                                            value="{{ $timeLimit->in ?? '-' }}" name="in">
                                     </div>
                                     <div class="flex gap-2 items-center">
                                         <label class="font-semibold text-md">Jam Pulang :</label>
-                                        <input type="time" class="border border-black p-1 rounded-lg font-semibold text-black"
-                                            value="{{ $timeLimit->out }}" name="out">
+                                        <input type="time"
+                                            class="border border-black p-1 rounded-lg font-semibold text-black"
+                                            value="{{ $timeLimit->out ?? '-' }}" name="out">
                                     </div>
                                 </div>
 
@@ -100,6 +121,26 @@
                     </div>
                 </section>
             </div>
+        </div>
+
+        <div class="bg-white shadow-lg p-6 rounded-lg lg:w-2/5 sm:flex justify-between items-center">
+            <div class="sm:mr-5 mb-5 sm:mb-0">
+                <h1 class="font-bold text-md">Keluar Akun</h1>
+                <p class="text-gray-800 text-sm">Tekan tombol di ini untuk keluar dari sistem.</p>
+            </div>
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button
+                    class="py-2 px-4 leading-5 text-white transition-colors duration-300 transform bg-red-600 rounded-md hover:bg-red-500 focus:outline-none focus:bg-red-700 flex items-center gap-2"
+                    type="submit">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                        height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M20 12H8m12 0-4 4m4-4-4-4M9 4H7a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h2" />
+                    </svg>
+                    <span>Logout</span>
+                </button>
+            </form>
         </div>
     </div>
 @endsection

@@ -57,16 +57,27 @@ class PermissionController extends Controller
         $permission->save();
 
         $attendanceStatus = $permission->explanation->id;
+        $today = now()->toDateString();
 
         $attendance = Attendance::where('student_id', $permission->student_id)
+            ->whereDate('attendance_date', $today)
             ->first();
 
         if ($attendance) {
             $attendance->status_id = $attendanceStatus;
             $attendance->save();
+        } else {
+            Attendance::create([
+                'student_id' => $permission->student_id,
+                'attendance_date' => $today,
+                'time_in' => null, 
+                'time_out' => null,
+                'device_id' => null,
+                'status_id' => $attendanceStatus,
+            ]);
         }
-        Alert::success('Success', 'Permohonan ijin berhasil diterima dan status absensi diperbarui!');
 
+        Alert::success('Success', 'Permohonan ijin berhasil diterima dan status absensi diperbarui!');
         return redirect()->back();
     }
 }

@@ -8,25 +8,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var list<string>
      */
-    protected $table = 'users'; 
+    protected $table = 'users';
 
-    protected static function booted()
-    {
-        static::addGlobalScope('admin', function ($query) {
-            $query->where('is_admin', true);
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::addGlobalScope('admin', function ($query) {
+    //         $query->where('role', 'admin');
+    //     });
+    // }
 
     protected $guarded = [];
 
@@ -52,5 +53,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    
+    public function class() :BelongsTo
+    {
+        return $this->belongsTo(StudentClass::class);
+    }
 
+    public function dashboardUrl()
+    {
+        return match ($this->role) {
+            'admin'    => route('dashboard'),
+            'educator' => route('division.dashboard'),
+            'student'  => route('student'),
+            default    => route('login'),
+        };
+    }
 }
